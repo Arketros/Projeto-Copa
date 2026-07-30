@@ -3,42 +3,40 @@
     <button class="btn btn-primary" onclick="openUsuarioModal()">+ Cadastrar Novo</button>
 </div>
 <?php
-	$sql = "SELECT * FROM usuario";
-	$res = $conn->query($sql);
-	$qtd = $res->num_rows;
+$sql = "SELECT * FROM usuario";
+$res = $conn->query($sql);
+$qtd = $res->num_rows;
 
-	if($qtd > 0){
-		print "<p>Encontrou <b>$qtd</b> resultado(s)</p>";
+if ($qtd > 0) {
+    print "<p>Encontrou <b>$qtd</b> resultado(s)</p>";
 
-		print "<div class='table-responsive'><table class='table table-bordered table-striped table-hover'>";
-		print "<tr>";
-		print "<th>#</th>";
-		print "<th>Nome do Usuario</th>";
-		print "<th>E-mail</th>";
-		print "<th>Senha</th>";
-		print "<th>Nível</th>";
-		print "<th>Prioridade</th>";
-		print "<th>Ações</th>";
-		print "</tr>";
-		while($row = $res->fetch_object()){
-			print "<tr>";
-			print "<td>".$row->id_usuario."</td>";
-			print "<td>".$row->nome_usuario."</td>";
-			print "<td>".$row->email_usuario."</td>";
-			print "<td>".$row->senha_usuario."</td>";
-			print "<td>".$row->nivel_usuario."</td>";
-			print "<td>".$row->prioridade_atendimento."</td>";
-			print "<td>
-					<button class='btn btn-success' onclick=\"location.href='?page=editar-usuario&id_usuario=".$row->id_usuario."';\">Editar</button>
+    print "<div class='table-responsive'><table class='table table-bordered table-striped table-hover'>";
+    print "<tr>";
+    print "<th>#</th>";
+    print "<th>Nome do Usuario</th>";
+    print "<th>E-mail</th>";
+    print "<th>Nível</th>";
+    print "<th>Prioridade</th>";
+    print "<th>Ações</th>";
+    print "</tr>";
+    while ($row = $res->fetch_object()) {
+        print "<tr>";
+        print "<td>" . $row->id_usuario . "</td>";
+        print "<td>" . $row->nome_usuario . "</td>";
+        print "<td>" . $row->email_usuario . "</td>";
+        print "<td>" . $row->nivel_usuario . "</td>";
+        print "<td>" . $row->prioridade_atendimento . "</td>";
+        print "<td>
+					<button class='btn btn-success' onclick=\"location.href='?page=editar-usuario&id_usuario=" . $row->id_usuario . "';\">Editar</button>
 
-					<button class='btn btn-danger' onclick=\"confirmDelete('?page=salvar-usuario&acao=excluir&id_usuario=".$row->id_usuario."')\">Excluir</button>
+					<button class='btn btn-danger' onclick=\"confirmDelete('?page=salvar-usuario&acao=excluir&id_usuario=" . $row->id_usuario . "')\">Excluir</button>
 				   </td>";
-			print "</tr>";
-		}
-		print "</table></div>";
-	}else{
-		print "<p class='alert alert-warning'>Não encontrou resultados!</p>";
-	}
+        print "</tr>";
+    }
+    print "</table></div>";
+} else {
+    print "<p class='alert alert-warning'>Não encontrou resultados!</p>";
+}
 ?>
 
 
@@ -58,10 +56,6 @@
             <div class="mb-3">
                 <label class="form-label">E-mail</label>
                 <input type="email" name="email_usuario" class="form-control" required>
-            </div>	
-            <div class="mb-3">
-                <label class="form-label">Senha</label>
-                <input type="text" name="senha_usuario" class="form-control">
             </div>
             <div class="mb-3">
                 <label class="form-label">Nível de Acesso</label>
@@ -82,7 +76,8 @@
                 </select>
             </div>
             <button type="submit" class="btn btn-primary w-100 py-3">Salvar Usuário</button>
-            <button type="button" class="btn btn-outline-secondary w-100 py-2 mt-2" onclick="closeUsuarioModal()">Cancelar</button>
+            <button type="button" class="btn btn-outline-secondary w-100 py-2 mt-2"
+                onclick="closeUsuarioModal()">Cancelar</button>
         </form>
     </div>
 </div>

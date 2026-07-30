@@ -140,7 +140,8 @@
                     <option value="">Não informado (Opcional)</option>
                     <option value="Normal">Reunião Normal</option>
                     <option value="Executiva">Reunião Executiva</option>
-                    <option value="AGM">AGM (Prioridade Máxima)</option>
+                    <option value="Treinamento">Treinamento</option>
+                    <option value="AGM">AGM</option>
                 </select>
             </div>
 
