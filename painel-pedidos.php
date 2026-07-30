@@ -103,6 +103,9 @@ if ($qtd > 0) {
     print "<p class='alert alert-success mt-4'>Nenhum pedido na fila. Bom trabalho!</p>";
 }
 ?>
+<div id="update-banner" class="bg-primary text-white px-4 py-2 rounded-pill shadow" style="display:none; position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 9999; cursor: pointer;" onclick="location.reload()">
+    <i data-lucide="refresh-cw" class="me-2" style="width:16px; height:16px;"></i> Novas atualizações! Clique para recarregar
+</div>
 <script>
     function openOrderModal(id) {
         document.getElementById('detailsModalOrder' + id).classList.add('open');
@@ -114,7 +117,20 @@ if ($qtd > 0) {
         document.getElementById('sheetBackdropOrder' + id).classList.remove('open');
     }
 
-    setTimeout(function () {
-        window.location.reload();
-    }, 10000);
+    let currentFingerprint = null;
+    function checkQueueUpdates() {
+        fetch('api-verificar-fila.php')
+            .then(res => res.text())
+            .then(fingerprint => {
+                if (currentFingerprint === null) {
+                    currentFingerprint = fingerprint;
+                } else if (fingerprint !== currentFingerprint && fingerprint.trim() !== '') {
+                    document.getElementById('update-banner').style.display = 'block';
+                }
+            })
+            .catch(e => console.log(e));
+    }
+    
+    setInterval(checkQueueUpdates, 5000);
+    checkQueueUpdates();
 </script>
