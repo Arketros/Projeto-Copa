@@ -20,7 +20,7 @@
                 $email = $_SESSION['cliente_email'];
                 $senha = $_POST['senha'];
                 
-                $sql = "SELECT * FROM usuario WHERE email_usuario='{$email}' AND senha_usuario='{$senha}' AND nivel_usuario != 'Cliente'";
+                $sql = "SELECT * FROM usuario WHERE email_usuario='{$email}' AND senha_usuario='{$senha}' AND nivel_usuario != 'Cliente' AND status_usuario != 'Excluído'";
                 $res = $conn->query($sql);
                 
                 if ($res && $res->num_rows > 0) {

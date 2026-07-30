@@ -7,7 +7,7 @@
 		<select name="cardapio_id_cardapio" class="form-control">
 			<option>-=Escolha=-</option>
 			<?php
-				$sql = "SELECT * FROM cardapio";
+				$sql = "SELECT * FROM cardapio WHERE situacao_cardapio != 'Excluído'";
 				$res = $conn->query($sql);
 				$qtd = $res->num_rows;
 				if($qtd > 0){

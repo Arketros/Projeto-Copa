@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS usuario (
     email_usuario TEXT NOT NULL UNIQUE,
     senha_usuario TEXT NOT NULL,
     nivel_usuario TEXT DEFAULT 'Cliente',
-    prioridade_atendimento INTEGER DEFAULT 3 -- 1 Alta, 2 Media, 3 Baixa
+    prioridade_atendimento INTEGER DEFAULT 3, -- 1 Alta, 2 Media, 3 Baixa
+    status_usuario TEXT DEFAULT 'Ativo'
 );
 -- Tabela do Cardápio
 CREATE TABLE IF NOT EXISTS cardapio (
@@ -21,7 +22,8 @@ CREATE TABLE IF NOT EXISTS sala (
     id_sala INTEGER PRIMARY KEY AUTOINCREMENT,
     nome_sala TEXT NOT NULL,
     hash_url TEXT NOT NULL UNIQUE,
-    capacidade INTEGER DEFAULT 6
+    capacidade INTEGER DEFAULT 6,
+    status_sala TEXT DEFAULT 'Ativo'
 );
 -- Tabela de Solicitações (Pedidos Consolidados)
 CREATE TABLE IF NOT EXISTS solicitacao (

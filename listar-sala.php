@@ -20,7 +20,7 @@
     <?php endif; ?>
 </div>
 <?php
-	$sql = "SELECT * FROM sala";
+	$sql = "SELECT * FROM sala WHERE status_sala != 'Excluído'";
 	$res = $conn->query($sql);
 	$qtd = $res->num_rows;
 

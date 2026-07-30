@@ -58,7 +58,7 @@
 			break;
 
 		case 'excluir':
-			$sql = "DELETE FROM usuario WHERE id_usuario=".$_GET["id_usuario"];
+			$sql = "UPDATE usuario SET status_usuario='Excluído' WHERE id_usuario=".$_GET["id_usuario"];
 
 			$res = $conn->query($sql);
 

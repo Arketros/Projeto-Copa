@@ -79,7 +79,7 @@
 				break;
 
 			case 'excluir':
-				$sql = "DELETE FROM cardapio WHERE id_cardapio=".$_REQUEST["id_cardapio"];
+				$sql = "UPDATE cardapio SET situacao_cardapio='Excluído' WHERE id_cardapio=".$_REQUEST["id_cardapio"];
 
 				$res = $conn->query($sql);
 

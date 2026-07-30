@@ -3,7 +3,7 @@
     <button class="btn btn-primary" onclick="openUsuarioModal()">+ Cadastrar Novo</button>
 </div>
 <?php
-$sql = "SELECT * FROM usuario";
+$sql = "SELECT * FROM usuario WHERE status_usuario != 'Excluído'";
 $res = $conn->query($sql);
 $qtd = $res->num_rows;
 

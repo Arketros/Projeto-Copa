@@ -17,7 +17,7 @@
         
         <?php
             $email = $_SESSION['cliente_email'];
-            $sql_user = "SELECT prioridade_atendimento FROM usuario WHERE email_usuario = '{$email}'";
+            $sql_user = "SELECT prioridade_atendimento FROM usuario WHERE email_usuario = '{$email}' AND status_usuario != 'Excluído'";
             $res_user = $conn->query($sql_user);
             if ($res_user && $res_user->num_rows > 0) {
                 $prio = $res_user->fetch_object()->prioridade_atendimento;

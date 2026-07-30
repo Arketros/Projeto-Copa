@@ -25,7 +25,7 @@ if (!empty($_REQUEST['sala']) || !empty($_SESSION['sala_hash'])) {
     
     if (@$_POST['acao'] == 'identificar_cliente') {
         $email_informado = trim($_POST['email']);
-        $sql_check = "SELECT email_usuario FROM usuario WHERE email_usuario = '{$email_informado}'";
+        $sql_check = "SELECT email_usuario FROM usuario WHERE email_usuario = '{$email_informado}' AND status_usuario != 'Excluído'";
         $res_check = $conn->query($sql_check);
         
         if ($res_check && $res_check->num_rows > 0) {
@@ -80,7 +80,7 @@ if (!empty($_REQUEST['sala']) || !empty($_SESSION['sala_hash'])) {
 if (@$_REQUEST['acao'] == 'login') {
     $email = $_POST['email'];
     $senha = $_POST['senha'];
-    $sql = "SELECT * FROM usuario WHERE email_usuario='{$email}' AND senha_usuario='{$senha}' AND nivel_usuario != 'Cliente'";
+    $sql = "SELECT * FROM usuario WHERE email_usuario='{$email}' AND senha_usuario='{$senha}' AND nivel_usuario != 'Cliente' AND status_usuario != 'Excluído'";
     $res = $conn->query($sql);
     if ($res && $res->num_rows > 0) {
         $row = $res->fetch_object();

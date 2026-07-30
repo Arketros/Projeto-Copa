@@ -13,7 +13,7 @@
         if (!isset($_SESSION['cliente_email'])) { header("Location: index.php"); exit; }
         
         $hash = isset($_SESSION['sala_hash']) ? $_SESSION['sala_hash'] : '';
-        $sql = "SELECT id_sala, nome_sala, capacidade FROM sala WHERE hash_url = '{$hash}'";
+        $sql = "SELECT id_sala, nome_sala, capacidade FROM sala WHERE hash_url = '{$hash}' AND status_sala != 'Excluído'";
         $res = $conn->query($sql);
         
         if (!$res || $res->num_rows == 0) {

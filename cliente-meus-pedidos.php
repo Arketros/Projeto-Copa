@@ -48,7 +48,7 @@
 
 
                 $hash = $_SESSION['sala_hash'];
-                $sql_sala = "SELECT id_sala FROM sala WHERE hash_url = '{$hash}'";
+                $sql_sala = "SELECT id_sala FROM sala WHERE hash_url = '{$hash}' AND status_sala != 'Excluído'";
                 $res_sala = $conn->query($sql_sala);
                 $id_sala = 0;
                 if ($res_sala && $res_sala->num_rows > 0) {

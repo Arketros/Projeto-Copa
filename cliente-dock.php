@@ -3,7 +3,7 @@ $current_page = @$_REQUEST['page'];
 
 
 $email_dock = $_SESSION['cliente_email'];
-$sql_check_nivel = "SELECT nivel_usuario FROM usuario WHERE email_usuario = '{$email_dock}'";
+$sql_check_nivel = "SELECT nivel_usuario FROM usuario WHERE email_usuario = '{$email_dock}' AND status_usuario != 'Excluído'";
 $res_nivel = $conn->query($sql_check_nivel);
 $is_gestor = false;
 if ($res_nivel && $res_nivel->num_rows > 0) {

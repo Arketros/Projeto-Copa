@@ -25,7 +25,7 @@
             
             $nome_sala = "Sala Desconhecida";
             $hash = $_SESSION['sala_hash'];
-            $sql = "SELECT nome_sala FROM sala WHERE hash_url = '{$hash}'";
+            $sql = "SELECT nome_sala FROM sala WHERE hash_url = '{$hash}' AND status_sala != 'Excluído'";
             $res = $conn->query($sql);
             if ($res && $res->num_rows > 0) {
                 $nome_sala = $res->fetch_object()->nome_sala;

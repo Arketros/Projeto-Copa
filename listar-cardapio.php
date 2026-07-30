@@ -3,7 +3,7 @@
     <button class="btn btn-primary" onclick="openCardapioModal()">+ Cadastrar Novo</button>
 </div>
 <?php
-$sql = "SELECT * FROM cardapio";
+$sql = "SELECT * FROM cardapio WHERE situacao_cardapio != 'Excluído'";
 $res = $conn->query($sql);
 $qtd = $res->num_rows;
 

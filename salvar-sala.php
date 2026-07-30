@@ -42,7 +42,7 @@
 			break;
 
 		case 'excluir':
-			$sql = "DELETE FROM sala WHERE id_sala=".$_REQUEST["id_sala"];
+			$sql = "UPDATE sala SET status_sala='Excluído' WHERE id_sala=".$_REQUEST["id_sala"];
 
 			$res = $conn->query($sql);
 
