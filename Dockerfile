@@ -15,6 +15,7 @@ COPY . /var/www/html/
 # Inicializar o banco de dados com o schema e rodar os seeds automaticamente
 RUN sqlite3 /var/www/html/database/database.db < /var/www/html/database/schema.sql \
     && php /var/www/html/database/seed_user.php \
+    && php /var/www/html/database/seed_salas.php \
     && php /var/www/html/database/seed_item.php
 
 
