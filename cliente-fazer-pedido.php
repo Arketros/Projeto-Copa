@@ -45,7 +45,10 @@
 
                 <!-- STEP 1: Meeting Info -->
                 <div id="step1" class="step-section active">
-                    <h5 class="mb-4 text-center">Detalhes da Reunião</h5>
+                    <div class="d-flex align-items-center mb-4">
+                        <button type="button" class="btn btn-link text-decoration-none p-0 me-3 text-dark" onclick="window.location.href='index.php?page=cliente-meus-pedidos'"><i data-lucide="arrow-left"></i> Voltar</button>
+                        <h5 class="mb-0 text-center flex-grow-1" style="margin-left: -40px;">Detalhes da Reunião</h5>
+                    </div>
                     
                     <div class="mb-4">
                         <label class="form-label fw-bold">Tipo de Reunião</label>
