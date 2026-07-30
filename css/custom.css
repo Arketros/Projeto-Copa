@@ -679,6 +679,15 @@ table.table td {
     background-color: #f5f5f7;
 }
 
+/* Table Action Buttons */
+.custom-table .btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border-radius: 8px;
+    margin: 2px;
+    font-weight: 500;
+}
+
 /* Mobile Adjustments for Tables */
 @media (max-width: 768px) {
     .custom-table th, .custom-table td {
