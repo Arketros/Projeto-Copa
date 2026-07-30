@@ -28,7 +28,7 @@
             $res_itens = $conn->query($sql_itens);
             $itens_str = "";
             while($it = $res_itens->fetch_object()){
-                $itens_str .= "{$it->nome_cardapio}<br>";
+                $itens_str .= "{$it->quantidade}x {$it->nome_cardapio}<br>";
             }
 
 			$data_br = date('d/m/Y H:i', strtotime($row->data_hora));

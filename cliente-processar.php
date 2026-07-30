@@ -63,7 +63,7 @@ if ($conn->query($sql_insert)) {
     foreach ($itens as $id_cardapio => $quantidade) {
         if ($quantidade > 0) {
             $id_c = (int)$id_cardapio;
-            $qtd_c = 1; 
+            $qtd_c = (int)$quantidade; 
             
             
             $sql_item = "INSERT INTO solicitacao_item (id_solicitacao, id_cardapio, quantidade) VALUES ({$id_solicitacao}, {$id_c}, {$qtd_c})";

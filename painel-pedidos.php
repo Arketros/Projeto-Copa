@@ -21,7 +21,7 @@ if ($qtd > 0) {
         $res_itens = $conn->query($sql_itens);
         $itens_str = "";
         while ($it = $res_itens->fetch_object()) {
-            $itens_str .= "<div class='mb-2 pb-2' style='border-bottom: 1px solid #f0f0f5;'><i data-lucide='coffee' style='width:16px;height:16px;' class='me-2 text-muted'></i> <strong>{$it->nome_cardapio}</strong></div>";
+            $itens_str .= "<div class='mb-2 pb-2' style='border-bottom: 1px solid #f0f0f5;'><i data-lucide='coffee' style='width:16px;height:16px;' class='me-2 text-muted'></i> <strong>{$it->quantidade}x {$it->nome_cardapio}</strong></div>";
         }
 
         $bg_status = $row->status == 'Pendente' ? 'bg-warning text-dark' : 'bg-info text-dark';

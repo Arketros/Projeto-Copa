@@ -71,7 +71,7 @@
                         $res_itens = $conn->query($sql_itens);
                         $itens_str = "";
                         while ($it = $res_itens->fetch_object()) {
-                            $itens_str .= "{$it->nome_cardapio}<br>";
+                            $itens_str .= "{$it->quantidade}x {$it->nome_cardapio}<br>";
                         }
 
                         $bg_status = 'bg-warning';
