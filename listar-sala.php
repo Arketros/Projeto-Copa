@@ -6,8 +6,8 @@
         var rectH = size * 0.16;
         var fontSize = size * 0.10;
         var logoXML = '<g transform="translate(' + center + ', ' + center + ')">' +
-            '<rect x="' + (-rectW / 2) + '" y="' + (-rectH / 2) + '" width="' + rectW + '" height="' + rectH + '" fill="#003cff" rx="3"/>' +
-            '<text x="0" y="2" font-family="Arial, Helvetica, sans-serif" font-size="' + fontSize + '" font-weight="900" fill="white" text-anchor="middle" dominant-baseline="middle">Seven.</text>' +
+            '<rect x="' + (-rectW / 2) + '" y="' + (-rectH / 2) + '" width="' + rectW + '" height="' + rectH + '" fill="white" rx="3"/>' +
+            '<text x="0" y="2" font-family="Arial, Helvetica, sans-serif" font-size="' + fontSize + '" font-weight="900" fill="#003cff" text-anchor="middle" dominant-baseline="middle">Seven.</text>' +
             '</g>';
         return svgString.replace('</svg>', logoXML + '</svg>');
     }
