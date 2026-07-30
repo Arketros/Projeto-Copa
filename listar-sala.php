@@ -7,7 +7,7 @@
         var fontSize = size * 0.09;
         var logoXML = '<g transform="translate(' + center + ', ' + center + ')">' +
             '<rect x="' + (-rectW / 2) + '" y="' + (-rectH / 2) + '" width="' + rectW + '" height="' + rectH + '" fill="white" rx="2"/>' +
-            '<text x="0" y="1" font-family="Arial" font-size="' + fontSize + '" font-weight="bold" fill="black" text-anchor="middle" dominant-baseline="middle">Seven - CSC</text>' +
+            '<text x="0" y="1" font-family="Arial" font-size="' + fontSize + '" font-weight="bold" fill="#0d6efd" text-anchor="middle" dominant-baseline="middle">Seven</text>' +
             '</g>';
         return svgString.replace('</svg>', logoXML + '</svg>');
     }
