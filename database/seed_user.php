@@ -16,6 +16,8 @@ try {
         ['Valmir', 'valmir.filho@seven.online', '123', 'Cliente', 5],
         ['Romario', 'romario.guamaraes@seven.online', '123', 'Cliente', 4],
         ['Felipe', 'felipe.antunes@seven.online', '123', 'Cliente', 4],
+        ['Artur', 'artur.alencar@seven.online', '123', 'Cliente', 5],
+        ['Beatriz', 'beatriz.porto@seven.online', '123', 'Cliente', 4],
     ];
 
     $insertUser = $pdo->prepare("INSERT OR IGNORE INTO usuario (nome_usuario, email_usuario, senha_usuario, nivel_usuario, prioridade_atendimento) VALUES (?, ?, ?, ?, ?)");
