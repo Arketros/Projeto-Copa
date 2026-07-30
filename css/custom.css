@@ -216,6 +216,14 @@ table.table td {
     box-shadow: 0 2px 8px rgba(0, 102, 204, 0.4);
 }
 
+.chair-extra {
+    border-color: #ff9800 !important;
+}
+.chair-extra.selected {
+    background-color: #ff9800 !important;
+    border-color: #ff9800 !important;
+}
+
 .oval-table {
     width: 100%;
     max-width: 280px;

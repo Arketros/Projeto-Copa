@@ -184,6 +184,34 @@
 
         function syncChairs() {
             let val = parseInt(document.getElementById('qtd_pessoas_input').value) || 0;
+            let currentChairs = document.querySelectorAll('.chair').length;
+            let containerCima = document.querySelectorAll('.chair-row')[0];
+            let containerBaixo = document.querySelectorAll('.chair-row')[1];
+            let maxCapacidade = <?php echo $capacidade; ?>;
+            
+            if (val > currentChairs) {
+                let diff = val - currentChairs;
+                for (let i=0; i<diff; i++) {
+                    let newChair = document.createElement('div');
+                    newChair.className = 'chair chair-extra';
+                    newChair.onclick = function() { toggleChair(this); };
+                    if (containerCima.children.length <= containerBaixo.children.length) {
+                        containerCima.appendChild(newChair);
+                    } else {
+                        containerBaixo.appendChild(newChair);
+                    }
+                }
+            } else if (val < currentChairs && currentChairs > maxCapacidade) {
+                let targetChairs = Math.max(maxCapacidade, val);
+                let diff = currentChairs - targetChairs;
+                for (let i=0; i<diff; i++) {
+                    let extras = document.querySelectorAll('.chair-extra');
+                    if (extras.length > 0) {
+                        extras[extras.length - 1].remove();
+                    }
+                }
+            }
+            
             let chairs = document.querySelectorAll('.chair');
             chairs.forEach((chair, index) => {
                 if (index < val) {
