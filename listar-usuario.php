@@ -10,7 +10,7 @@ $qtd = $res->num_rows;
 if ($qtd > 0) {
     print "<p>Encontrou <b>$qtd</b> resultado(s)</p>";
 
-    print "<div class='table-responsive'><table class='table table-bordered table-striped table-hover'>";
+    print "<div class='table-responsive'><table class='table custom-table'>";
     print "<tr>";
     print "<th>#</th>";
     print "<th>Nome do Usuario</th>";

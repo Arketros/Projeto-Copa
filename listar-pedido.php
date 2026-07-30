@@ -10,7 +10,7 @@
 
 	if($qtd > 0){
 		print "<p>Encontrou <b>$qtd</b> resultado(s)</p>";
-		print "<table class='table table-bordered table-striped table-hover'>";
+		print "<div class='table-responsive'><table class='table custom-table'>";
 		print "<tr>";
 		print "<th>#</th>";
 		print "<th>Nome do pedido</th>";
@@ -29,7 +29,7 @@
 				   </td>";
 			print "</tr>";
 		}
-		print "</table>";
+		print "</table></div>";
 
 	}else{
 		print "Nenhum resultado";

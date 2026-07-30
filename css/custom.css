@@ -628,3 +628,66 @@ table.table td {
     background-color: #0066cc;
     color: #fff;
 }
+
+/* Custom Table Styling */
+.table-responsive {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    overflow: auto; /* Changed to auto for better scrolling */
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.custom-table {
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 600px; /* Garante que não esmague demais e force o scroll na horizontal */
+}
+
+.custom-table th {
+    background-color: #f8f9fa;
+    color: #86868b;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-top: none;
+}
+
+.custom-table td {
+    padding: 1rem;
+    vertical-align: middle;
+    color: #1d1d1f;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+    border-top: none;
+    font-size: 0.95rem;
+}
+
+.custom-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.custom-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f5f5f7;
+}
+
+/* Mobile Adjustments for Tables */
+@media (max-width: 768px) {
+    .custom-table th, .custom-table td {
+        padding: 0.6rem 0.5rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+    
+    .table-responsive {
+        border-radius: 8px;
+    }
+}

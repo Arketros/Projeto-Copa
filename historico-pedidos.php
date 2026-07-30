@@ -10,7 +10,7 @@
 	$qtd = $res->num_rows;
 
 	if($qtd > 0){
-		print "<table class='table table-bordered table-striped'>";
+		print "<div class='table-responsive'><table class='table custom-table'>";
 		print "<tr>";
 		print "<th>ID</th>";
 		print "<th>Sala</th>";
@@ -47,7 +47,7 @@
 			print "<td><span class='badge {$badge_class}'>".$row->status."</span><br><small>".$data_br."</small></td>";
 			print "</tr>";
 		}
-		print "</table>";
+		print "</table></div>";
 	}else{
 		print "<p class='alert alert-warning mt-4'>Nenhum pedido finalizado no momento.</p>";
 	}
