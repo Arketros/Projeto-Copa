@@ -9,12 +9,9 @@ try {
     echo "Conectado ao banco de dados com sucesso.\n";
 
     $fake_salas = [
-        ['Sala de Reunião Principal', md5(uniqid(rand(), true)), 12],
-        ['Sala Executiva A', md5(uniqid(rand(), true)), 4],
-        ['Sala Executiva B', md5(uniqid(rand(), true)), 4],
-        ['Sala de Inovação', md5(uniqid(rand(), true)), 8],
-        ['Auditório', md5(uniqid(rand(), true)), 30],
-        ['Espaço Coworking', md5(uniqid(rand(), true)), 15],
+        ['Sala de Reunião 5', md5(uniqid(rand(), true)), 5],
+        ['Sala de Reunião 4', md5(uniqid(rand(), true)), 5],
+        ['Sala de Reunião Mezanino', md5(uniqid(rand(), true)), 4],
     ];
 
     $insertSala = $pdo->prepare("INSERT OR IGNORE INTO sala (nome_sala, hash_url, capacidade) VALUES (?, ?, ?)");
