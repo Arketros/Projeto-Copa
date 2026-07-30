@@ -39,7 +39,7 @@
             <div class="text-center mb-4">
                 <i data-lucide="lock" style="width: 48px; height: 48px; color: #0066cc;" class="mb-2"></i>
                 <h5>Área do Colaborador</h5>
-                <p class="text-muted small">Por segurança, confirme sua senha para acessar as funções de <?php echo $nivel_dock; ?>.</p>
+                <p class="text-muted small">Por segurança, confirme sua senha para acessar as funções de colaborador.</p>
             </div>
 
             <form method="POST">
