@@ -75,7 +75,7 @@ if ($qtd > 0) {
                     </div>
                     <div class="mb-3">
                         <div class="comanda-row fw-bold"><span>Reunião:</span> <span><?php echo $row->tipo_encontro; ?></span></div>
-                        <div class="comanda-row fw-bold"><span>Pessoas:</span> <span><?php echo $row->quantidade_pessoas; ?> pes.</span></div>
+                        <div class="comanda-row fw-bold"><span>Pessoas:</span> <span><?php echo ($row->quantidade_pessoas == 0) ? 'Não informada' : $row->quantidade_pessoas . ' pes.'; ?></span></div>
                     </div>
                     <div class="comanda-divider"></div>
                     <div class="mb-2 fw-bold text-center">ITENS SOLICITADOS</div>

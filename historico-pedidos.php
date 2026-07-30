@@ -41,7 +41,8 @@
 			print "<td>".$row->id_solicitacao."</td>";
 			print "<td>".$row->nome_sala."</td>";
 			print "<td>".$row->email_cliente."</td>";
-			print "<td>".$row->tipo_encontro." (".$row->quantidade_pessoas." pes.)</td>";
+			$pessoas_str = ($row->quantidade_pessoas == 0) ? "Pessoas: Não informada" : $row->quantidade_pessoas . " pes.";
+			print "<td>".$row->tipo_encontro." (".$pessoas_str.")</td>";
 			print "<td>".$itens_str."</td>";
 			print "<td><span class='badge {$badge_class}'>".$row->status."</span><br><small>".$data_br."</small></td>";
 			print "</tr>";

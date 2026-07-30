@@ -59,6 +59,7 @@
                     <div class="mb-4">
                         <label class="form-label fw-bold">Tipo de Reunião</label>
                         <select name="tipo_encontro" id="tipo_encontro_select" class="form-select form-select-lg">
+                            <option value="Não Informado">Não Informado</option>
                             <option value="Normal">Reunião Normal</option>
                             <option value="Executiva">Reunião Executiva</option>
                             <option value="Treinamento">Treinamento</option>
@@ -298,7 +299,7 @@
                 </div>
                 <div class="mb-3">
                     <div class="comanda-row fw-bold"><span>Reunião:</span> <span>${nomeTipo}</span></div>
-                    <div class="comanda-row fw-bold"><span>Pessoas:</span> <span>${qtdPessoas} pes.</span></div>
+                    <div class="comanda-row fw-bold"><span>Pessoas:</span> <span>${qtdPessoas === 0 ? 'Não informada' : qtdPessoas + ' pes.'}</span></div>
                 </div>
                 <div class="comanda-divider"></div>
                 <div class="mb-2 fw-bold text-center">ITENS DO PEDIDO</div>
