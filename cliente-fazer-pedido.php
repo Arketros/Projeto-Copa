@@ -68,7 +68,7 @@
 
                     <div class="mb-4">
                         <label class="form-label fw-bold d-block text-center">Quantas pessoas?</label>
-                        <input type="number" name="quantidade_pessoas" id="qtd_pessoas_input" class="form-control form-control-lg text-center mb-3 fw-bold fs-3" style="max-width: 150px; margin: 0 auto;" min="2" value="2" onchange="syncChairs()">
+                        <input type="number" name="quantidade_pessoas" id="qtd_pessoas_input" class="form-control form-control-lg text-center mb-3 fw-bold fs-3" style="max-width: 150px; margin: 0 auto;" min="0" value="0" onchange="syncChairs()">
                         
                         <div class="text-center text-muted small mb-3">Ou clique nas cadeiras da mesa:</div>
                         <div class="meeting-room mb-2">
@@ -161,8 +161,8 @@
         // -- Navigation --
         function validateStep1() {
             let qtd = parseInt(document.getElementById('qtd_pessoas_input').value) || 0;
-            if (qtd < 2) {
-                alert("Uma reunião exige no mínimo 2 pessoas.");
+            if (qtd === 1) {
+                alert("Para pedir apenas um item (sem reunião), deixe a quantidade em 0. Se for uma reunião, o mínimo são 2 pessoas.");
                 return;
             }
             nextStep(2);
