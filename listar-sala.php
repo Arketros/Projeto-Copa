@@ -51,7 +51,7 @@ if ($qtd > 0) {
                 <div class='card shadow-sm border-0 h-100' style='border-radius: 12px;'>
                     <div class='card-body text-center d-flex flex-column'>
                         <h5 class='card-title fw-bold text-primary mb-1'>{$row->nome_sala}</h5>
-                        <p class='text-muted small mb-3'>ID da Sala: {$row->id_sala}</p>
+                        <p class='text-muted small mb-3'>Número de pessoas: {$row->capacidade}</p>
                         
                         <div id='qr-{$row->id_sala}' class='d-flex justify-content-center mb-3'></div>
                         <script>
