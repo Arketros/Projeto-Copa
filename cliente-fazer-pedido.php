@@ -12,9 +12,15 @@
         <?php
         if (!isset($_SESSION['cliente_email'])) { header("Location: index.php"); exit; }
         
-        $hash = $_SESSION['sala_hash'];
+        $hash = isset($_SESSION['sala_hash']) ? $_SESSION['sala_hash'] : '';
         $sql = "SELECT id_sala, nome_sala, capacidade FROM sala WHERE hash_url = '{$hash}'";
         $res = $conn->query($sql);
+        
+        if (!$res || $res->num_rows == 0) {
+            echo "</div><div class='container mt-5'><div class='alert alert-danger'>Erro: Sala não encontrada. Por favor, leia o QR Code da mesa novamente.</div></div></body></html>";
+            exit;
+        }
+        
         $sala = $res->fetch_object();
 
         $capacidade = isset($sala->capacidade) ? (int) $sala->capacidade : 6;
