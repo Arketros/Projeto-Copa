@@ -68,7 +68,7 @@
 
                     <div class="mb-4">
                         <label class="form-label fw-bold d-block text-center">Quantas pessoas?</label>
-                        <input type="number" name="quantidade_pessoas" id="qtd_pessoas_input" class="form-control form-control-lg text-center mb-3 fw-bold fs-3" style="max-width: 150px; margin: 0 auto;" min="0" value="0" onchange="syncChairs()">
+                        <input type="number" name="quantidade_pessoas" id="qtd_pessoas_input" class="form-control form-control-lg text-center mb-3 fw-bold fs-3" style="max-width: 150px; margin: 0 auto;" min="2" value="2" onchange="syncChairs()">
                         
                         <div class="text-center text-muted small mb-3">Ou clique nas cadeiras da mesa:</div>
                         <div class="meeting-room mb-2">
@@ -86,7 +86,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-primary w-100 py-3 font-weight-bold" onclick="nextStep(2)">Avançar para o Cardápio <i data-lucide="arrow-right" class="ms-2" style="width:18px;"></i></button>
+                    <button type="button" class="btn btn-primary w-100 py-3 font-weight-bold" onclick="validateStep1()">Avançar para o Cardápio <i data-lucide="arrow-right" class="ms-2" style="width:18px;"></i></button>
                 </div>
 
                 <!-- STEP 2: Menu Items -->
@@ -159,6 +159,15 @@
 
     <script>
         // -- Navigation --
+        function validateStep1() {
+            let qtd = parseInt(document.getElementById('qtd_pessoas_input').value) || 0;
+            if (qtd < 2) {
+                alert("Uma reunião exige no mínimo 2 pessoas.");
+                return;
+            }
+            nextStep(2);
+        }
+
         function updateStepper(step) {
             document.querySelectorAll('.stepper-item').forEach((item, index) => {
                 let s = index + 1;
@@ -310,6 +319,11 @@
             
             nextStep(3);
         }
+
+        // Initialize chairs on load
+        window.onload = function() {
+            syncChairs();
+        };
     </script>
 </body>
 </html>
