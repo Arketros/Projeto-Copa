@@ -24,14 +24,12 @@
 							nome_cardapio,
 							situacao_cardapio,
                             categoria_cardapio,
-                            imagem_url,
-							quantidade_disponivel
+                            imagem_url
 						) VALUES (
 							'{$nome_cardapio}',
 							'{$situacao_cardapio}',
                             '{$categoria_cardapio}',
-                            '{$imagem_url}',
-							100
+                            '{$imagem_url}'
 						)";
 
 				$res = $conn->query($sql);
