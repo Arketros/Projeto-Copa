@@ -16,10 +16,11 @@ if (isset($_REQUEST['sala']) || isset($_SESSION['sala_hash'])) {
     
     
     if (@$_REQUEST['acao'] == 'sair_cliente') {
+        $sala = isset($_REQUEST['sala']) ? $_REQUEST['sala'] : (isset($_SESSION['sala_hash']) ? $_SESSION['sala_hash'] : "");
         unset($_SESSION['cliente_email']);
         setcookie('cliente_email', '', time() - 3600);
-        unset($_SESSION['sala_hash']);
-        header("Location: index.php");
+        // keep sala_hash so they don't get kicked out of the room context
+        header("Location: index.php" . ($sala ? "?sala=" . urlencode($sala) : ""));
         exit;
     }
     
