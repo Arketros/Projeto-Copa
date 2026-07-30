@@ -125,7 +125,10 @@ if ($qtd > 0) {
                 if (currentFingerprint === null) {
                     currentFingerprint = fingerprint;
                 } else if (fingerprint !== currentFingerprint && fingerprint.trim() !== '') {
-                    document.getElementById('update-banner').style.display = 'block';
+                    let banner = document.getElementById('update-banner');
+                    banner.innerHTML = 'Nova atualização na fila! Recarregando...';
+                    banner.style.display = 'block';
+                    setTimeout(() => location.reload(), 1500);
                 }
             })
             .catch(e => console.log(e));

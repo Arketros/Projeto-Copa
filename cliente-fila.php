@@ -48,7 +48,7 @@
                             FROM solicitacao s 
                             JOIN sala sa ON s.id_sala = sa.id_sala 
                             WHERE s.status != 'Finalizado' AND s.data_hora LIKE '{$hoje}%'
-                            ORDER BY s.prioridade_calculada ASC, s.data_hora ASC";
+                            ORDER BY s.prioridade_calculada DESC, s.data_hora ASC";
                 $res = $conn->query($sql);
 
                 if ($res && $res->num_rows > 0) {
@@ -99,7 +99,10 @@
                     if (currentFingerprint === null) {
                         currentFingerprint = fingerprint;
                     } else if (fingerprint !== currentFingerprint && fingerprint.trim() !== '') {
-                        document.getElementById('update-banner').style.display = 'block';
+                        let banner = document.getElementById('update-banner');
+                        banner.innerHTML = 'Nova atualização na fila! Recarregando...';
+                        banner.style.display = 'block';
+                        setTimeout(() => location.reload(), 1500);
                     }
                 })
                 .catch(e => console.log(e));

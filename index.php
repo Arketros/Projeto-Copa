@@ -14,11 +14,9 @@ if (!empty($_REQUEST['sala']) || !empty($_SESSION['sala_hash'])) {
     
     
     if (@$_REQUEST['acao'] == 'sair_cliente') {
-        $sala = !empty($_REQUEST['sala']) ? $_REQUEST['sala'] : (!empty($_SESSION['sala_hash']) ? $_SESSION['sala_hash'] : "");
         unset($_SESSION['cliente_email']);
-        // keep sala_hash so they don't get kicked out of the room context
-        $redirect = "index.php" . ($sala ? "?sala=" . urlencode($sala) : "");
-        echo "<script>localStorage.clear(); window.location.href='{$redirect}';</script>";
+        unset($_SESSION['sala_hash']);
+        echo "<script>localStorage.clear(); window.location.href='index.php';</script>";
         exit;
     }
     
@@ -96,9 +94,8 @@ if (@$_REQUEST['acao'] == 'login') {
 }
 
 if (@$_REQUEST['acao'] == 'logout') {
-    $sala = !empty($_SESSION['sala_hash']) ? "?sala=" . urlencode($_SESSION['sala_hash']) : "";
     session_destroy();
-    echo "<script>localStorage.clear(); window.location.href='index.php" . $sala . "';</script>";
+    echo "<script>localStorage.clear(); window.location.href='index.php';</script>";
     exit;
 }
 
