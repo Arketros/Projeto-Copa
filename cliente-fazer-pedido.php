@@ -10,8 +10,6 @@
 <body>
     <div class="blue-header">
         <?php
-        session_start();
-        include('config.php');
         if (!isset($_SESSION['cliente_email'])) { header("Location: index.php"); exit; }
         
         $hash = $_SESSION['sala_hash'];
