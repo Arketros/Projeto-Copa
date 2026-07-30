@@ -80,7 +80,7 @@ if (!empty($_REQUEST['sala']) || !empty($_SESSION['sala_hash'])) {
 if (@$_REQUEST['acao'] == 'login') {
     $email = $_POST['email'];
     $senha = $_POST['senha'];
-    $sql = "SELECT * FROM usuario WHERE email_usuario='{$email}' AND senha_usuario='{$senha}'";
+    $sql = "SELECT * FROM usuario WHERE email_usuario='{$email}' AND senha_usuario='{$senha}' AND nivel_usuario != 'Cliente'";
     $res = $conn->query($sql);
     if ($res && $res->num_rows > 0) {
         $row = $res->fetch_object();
