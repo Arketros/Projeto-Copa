@@ -9,14 +9,14 @@ if (!isset($_SESSION['cliente_email']) && isset($_COOKIE['cliente_email'])) {
 }
 
 
-if (isset($_REQUEST['sala']) || isset($_SESSION['sala_hash'])) {
-    if (isset($_REQUEST['sala'])) {
+if (!empty($_REQUEST['sala']) || !empty($_SESSION['sala_hash'])) {
+    if (!empty($_REQUEST['sala'])) {
         $_SESSION['sala_hash'] = $_REQUEST['sala'];
     }
     
     
     if (@$_REQUEST['acao'] == 'sair_cliente') {
-        $sala = isset($_REQUEST['sala']) ? $_REQUEST['sala'] : (isset($_SESSION['sala_hash']) ? $_SESSION['sala_hash'] : "");
+        $sala = !empty($_REQUEST['sala']) ? $_REQUEST['sala'] : (!empty($_SESSION['sala_hash']) ? $_SESSION['sala_hash'] : "");
         unset($_SESSION['cliente_email']);
         setcookie('cliente_email', '', time() - 3600);
         // keep sala_hash so they don't get kicked out of the room context
@@ -99,7 +99,7 @@ if (@$_REQUEST['acao'] == 'login') {
 }
 
 if (@$_REQUEST['acao'] == 'logout') {
-    $sala = isset($_SESSION['sala_hash']) ? "?sala=" . urlencode($_SESSION['sala_hash']) : "";
+    $sala = !empty($_SESSION['sala_hash']) ? "?sala=" . urlencode($_SESSION['sala_hash']) : "";
     session_destroy();
     echo "<script>localStorage.clear(); window.location.href='index.php" . $sala . "';</script>";
     exit;
