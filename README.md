@@ -11,7 +11,7 @@ Projeto de produção de sistema de pedidos a copa
    ```
 2. *(Opcional, mas recomendado)* Popule o banco de dados com dados falsos (salas, usuários e itens de cardápio) para testes:
    ```bash
-   php database/seed.php
+   php database/seed_[NOME_DO_ARQUIVO].php
    ```
 3. Inicie o servidor embutido do PHP na raiz do projeto:
    ```bash
