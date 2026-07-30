@@ -23,7 +23,7 @@
                 $prio = $res_user->fetch_object()->prioridade_atendimento;
                 
                 
-                $stars_count = max(1, 6 - $prio); 
+                $stars_count = max(1, $prio); 
                 
                 echo "<div class='mt-2' style='color: #FFD700;'>"; 
                 for($i=0; $i<$stars_count; $i++) {
