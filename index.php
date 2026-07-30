@@ -18,7 +18,8 @@ if (isset($_REQUEST['sala']) || isset($_SESSION['sala_hash'])) {
     if (@$_REQUEST['acao'] == 'sair_cliente') {
         unset($_SESSION['cliente_email']);
         setcookie('cliente_email', '', time() - 3600);
-        header("Location: ?sala=" . $_SESSION['sala_hash']);
+        unset($_SESSION['sala_hash']);
+        header("Location: index.php");
         exit;
     }
     
