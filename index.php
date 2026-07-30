@@ -201,6 +201,7 @@ if (!$is_admin && in_array($page, $admin_only_pages)) {
                         
                         case 'cadastrar-sala': include('cadastrar-sala.php'); break;
                         case 'listar-sala': include('listar-sala.php'); break;
+                        case 'editar-sala': include('editar-sala.php'); break;
                         case 'salvar-sala': include('salvar-sala.php'); break;
                         
                         case 'painel-pedidos': include('painel-pedidos.php'); break;
