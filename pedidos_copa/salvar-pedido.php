@@ -6,8 +6,7 @@
 			$quantidade  = isset($_POST['quantidade_pedido']) ? $_POST['quantidade_pedido'] : '';
 
 			if ($cardapio_id == '' || $cardapio_id == '-=Escolha=-') {
-				print "<script>alert('Erro: Por favor, selecione um item válido do cardápio!');</script>";
-				print "<script>history.back();</script>";
+				$_SESSION['toast_msg'] = 'Erro: Por favor, selecione um item válido do cardápio!'; $_SESSION['toast_type'] = 'danger'; header('Location: ' . $_SERVER['HTTP_REFERER']); exit;
 				break;
 			}
 
@@ -22,11 +21,9 @@
 			$res = $conn->query($sql);
 
 			if($res == true){
-				print "<script>alert('Cadastrou com sucesso!');</script>";
-				print "<script>location.href='?page=listar-pedido';</script>";
+				$_SESSION['toast_msg'] = 'Cadastrou com sucesso!'; $_SESSION['toast_type'] = (strpos('Cadastrou com sucesso!', 'Não') === false && strpos('Cadastrou com sucesso!', 'Erro') === false) ? 'success' : 'danger'; header('Location: ?page=listar-pedido'); exit;
 			}else{
-				print "<script>alert('Não cadastrou');</script>";
-				print "<script>location.href='?page=listar-pedido';</script>";
+				$_SESSION['toast_msg'] = 'Não cadastrou'; $_SESSION['toast_type'] = (strpos('Não cadastrou', 'Não') === false && strpos('Não cadastrou', 'Erro') === false) ? 'success' : 'danger'; header('Location: ?page=listar-pedido'); exit;
 			}
 
 			break;
@@ -36,8 +33,7 @@
 				$quantidade = isset($_POST['quantidade_pedido']) ? $_POST['quantidade_pedido'] : '';
 
 				if (empty($nome) || empty($quantidade)) {
-					print "<script>alert('Erro: O nome do item e a quantidade não podem ficar vazios!');</script>";
-					print "<script>history.back();</script>"; 
+					$_SESSION['toast_msg'] = 'Erro: O nome do item e a quantidade não podem ficar vazios!'; $_SESSION['toast_type'] = 'danger'; header('Location: ' . $_SERVER['HTTP_REFERER']); exit; 
 					break; 
 				}	
 
@@ -50,11 +46,9 @@
 				$res = $conn->query($sql);
 
 				if($res == true){
-					print "<script>alert('Editou com sucesso!');</script>";
-					print "<script>location.href='?page=listar-pedido';</script>";
+					$_SESSION['toast_msg'] = 'Editou com sucesso!'; $_SESSION['toast_type'] = (strpos('Editou com sucesso!', 'Não') === false && strpos('Editou com sucesso!', 'Erro') === false) ? 'success' : 'danger'; header('Location: ?page=listar-pedido'); exit;
 				}else{
-					print "<script>alert('Não editou');</script>";
-					print "<script>location.href='?page=listar-pedido';</script>";
+					$_SESSION['toast_msg'] = 'Não editou'; $_SESSION['toast_type'] = (strpos('Não editou', 'Não') === false && strpos('Não editou', 'Erro') === false) ? 'success' : 'danger'; header('Location: ?page=listar-pedido'); exit;
 				}
 				break;
 
@@ -64,11 +58,9 @@
 				$res = $conn->query($sql);
 
 				if($res == true){
-					print "<script>alert('Excluiu com sucesso!');</script>";
-					print "<script>location.href='?page=listar-pedido';</script>";
+					$_SESSION['toast_msg'] = 'Excluiu com sucesso!'; $_SESSION['toast_type'] = (strpos('Excluiu com sucesso!', 'Não') === false && strpos('Excluiu com sucesso!', 'Erro') === false) ? 'success' : 'danger'; header('Location: ?page=listar-pedido'); exit;
 				}else{
-					print "<script>alert('Não excluiu');</script>";
-					print "<script>location.href='?page=listar-pedido';</script>";
+					$_SESSION['toast_msg'] = 'Não excluiu'; $_SESSION['toast_type'] = (strpos('Não excluiu', 'Não') === false && strpos('Não excluiu', 'Erro') === false) ? 'success' : 'danger'; header('Location: ?page=listar-pedido'); exit;
 				}
 				break;
 		}

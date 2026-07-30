@@ -1,58 +1,64 @@
 	<?php
 		switch ($_REQUEST['acao']) {
 			case 'cadastrar':
-				$nome     = $_POST['nome_cardapio'];
-				$situacao = $_POST['situacao_cardapio'];
+				$nome_cardapio 		= $_POST['nome_cardapio'];
+				$situacao_cardapio 	= $_POST['situacao_cardapio'];
+				$categoria_cardapio = $_POST['categoria_cardapio'];
+				$imagem_url 		= $_POST['imagem_url'];
 
-				if (empty(trim($nome)) || empty(trim($situacao))) {
-					print "<script>alert('Erro: O nome do item e a situação/disponibilidade não podem ficar vazios!');</script>";
-					print "<script>history.back();</script>"; 
+				if (empty(trim($nome_cardapio)) || empty(trim($situacao_cardapio))) {
+					$_SESSION['toast_msg'] = 'Erro: O nome do item e a situação/disponibilidade não podem ficar vazios!'; $_SESSION['toast_type'] = 'danger'; header('Location: ' . $_SERVER['HTTP_REFERER']); 
 					break; 
 				}	
 
 				$sql = "INSERT INTO cardapio (
 							nome_cardapio,
-							situacao_cardapio
+							situacao_cardapio,
+                            categoria_cardapio,
+                            imagem_url,
+							quantidade_disponivel
 						) VALUES (
-							'{$nome}',
-							'{$situacao}'
+							'{$nome_cardapio}',
+							'{$situacao_cardapio}',
+                            '{$categoria_cardapio}',
+                            '{$imagem_url}',
+							100
 						)";
 
 				$res = $conn->query($sql);
 
 				if($res == true){
-					print "<script>alert('Cadastrou com sucesso!');</script>";
-					print "<script>location.href='?page=listar-cardapio';</script>";
+					$_SESSION['toast_msg'] = 'Cadastrou com sucesso!'; $_SESSION['toast_type'] = (strpos('Cadastrou com sucesso!', 'Não') === false && strpos('Cadastrou com sucesso!', 'Erro') === false) ? 'success' : 'danger'; header('Location: ?page=listar-cardapio'); exit;
 				}else{
-					print "<script>alert('Não cadastrou');</script>";
-					print "<script>location.href='?page=listar-cardapio';</script>";
+					$_SESSION['toast_msg'] = 'Não cadastrou'; $_SESSION['toast_type'] = (strpos('Não cadastrou', 'Não') === false && strpos('Não cadastrou', 'Erro') === false) ? 'success' : 'danger'; header('Location: ?page=listar-cardapio'); exit;
 				}
 				break;
 			
 			case 'editar':
-				$nome     = $_POST['nome_cardapio'];
-				$situacao = $_POST['situacao_cardapio'];
+				$nome_cardapio 		= $_POST['nome_cardapio'];
+				$situacao_cardapio 	= $_POST['situacao_cardapio'];
+				$categoria_cardapio = $_POST['categoria_cardapio'];
+				$imagem_url 		= $_POST['imagem_url'];
 
-				if (empty(trim($nome)) || empty(trim($situacao))) {
-					print "<script>alert('Erro: O nome do item e a situação/disponibilidade não podem ficar vazios!');</script>";
-					print "<script>history.back();</script>"; 
+				if (empty(trim($nome_cardapio)) || empty(trim($situacao_cardapio))) {
+					$_SESSION['toast_msg'] = 'Erro: O nome do item e a situação/disponibilidade não podem ficar vazios!'; $_SESSION['toast_type'] = 'danger'; header('Location: ' . $_SERVER['HTTP_REFERER']); 
 					break; 
 				}	
 
 				$sql = "UPDATE cardapio SET 
-							nome_cardapio='{$nome}',
-							situacao_cardapio='{$situacao}'
+							nome_cardapio='{$nome_cardapio}',
+							situacao_cardapio='{$situacao_cardapio}',
+                            categoria_cardapio='{$categoria_cardapio}',
+                            imagem_url='{$imagem_url}'
 						WHERE
 							id_cardapio=".$_POST["id_cardapio"];
 
 				$res = $conn->query($sql);
 
 				if($res == true){
-					print "<script>alert('Editou com sucesso!');</script>";
-					print "<script>location.href='?page=listar-cardapio';</script>";
+					$_SESSION['toast_msg'] = 'Editou com sucesso!'; $_SESSION['toast_type'] = (strpos('Editou com sucesso!', 'Não') === false && strpos('Editou com sucesso!', 'Erro') === false) ? 'success' : 'danger'; header('Location: ?page=listar-cardapio'); exit;
 				}else{
-					print "<script>alert('Não editou');</script>";
-					print "<script>location.href='?page=listar-cardapio';</script>";
+					$_SESSION['toast_msg'] = 'Não editou'; $_SESSION['toast_type'] = (strpos('Não editou', 'Não') === false && strpos('Não editou', 'Erro') === false) ? 'success' : 'danger'; header('Location: ?page=listar-cardapio'); exit;
 				}
 				break;
 
@@ -62,11 +68,9 @@
 				$res = $conn->query($sql);
 
 				if($res == true){
-					print "<script>alert('Excluiu com sucesso!');</script>";
-					print "<script>location.href='?page=listar-cardapio';</script>";
+					$_SESSION['toast_msg'] = 'Excluiu com sucesso!'; $_SESSION['toast_type'] = (strpos('Excluiu com sucesso!', 'Não') === false && strpos('Excluiu com sucesso!', 'Erro') === false) ? 'success' : 'danger'; header('Location: ?page=listar-cardapio'); exit;
 				}else{
-					print "<script>alert('Não excluiu');</script>";
-					print "<script>location.href='?page=listar-cardapio';</script>";
+					$_SESSION['toast_msg'] = 'Não excluiu'; $_SESSION['toast_type'] = (strpos('Não excluiu', 'Não') === false && strpos('Não excluiu', 'Erro') === false) ? 'success' : 'danger'; header('Location: ?page=listar-cardapio'); exit;
 				}
 				break;
 		}
