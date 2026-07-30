@@ -572,3 +572,51 @@ table.table td {
     border-top: 1px dashed #ccc;
     margin: 15px 0;
 }
+
+/* Stepper Indicator */
+.stepper-wrapper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 0 auto 30px auto;
+    max-width: 300px;
+}
+.stepper-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background-color: #e0e0e0;
+    transform: translateY(-50%);
+    z-index: 0;
+}
+.stepper-item {
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    padding: 0 10px;
+}
+.step-counter {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #ccc;
+    transition: all 0.3s;
+}
+.stepper-item.active .step-counter,
+.stepper-item.completed .step-counter {
+    border-color: #0066cc;
+    color: #0066cc;
+}
+.stepper-item.completed .step-counter {
+    background-color: #0066cc;
+    color: #fff;
+}

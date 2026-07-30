@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Fazer Pedido - Seven</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="blue-header">
@@ -30,9 +30,22 @@
             <form id="pedidoForm" action="cliente-processar.php" method="POST">
                 <input type="hidden" name="id_sala" value="<?php echo $sala->id_sala; ?>">
                 
+                <!-- Stepper Indicator -->
+                <div class="stepper-wrapper mb-4 text-center">
+                    <div class="stepper-item active" id="step-ind-1">
+                        <div class="step-counter">1</div>
+                    </div>
+                    <div class="stepper-item" id="step-ind-2">
+                        <div class="step-counter">2</div>
+                    </div>
+                    <div class="stepper-item" id="step-ind-3">
+                        <div class="step-counter">3</div>
+                    </div>
+                </div>
+
                 <!-- STEP 1: Meeting Info -->
                 <div id="step1" class="step-section active">
-                    <h5 class="mb-4 text-center">Passo 1: Detalhes da Reunião</h5>
+                    <h5 class="mb-4 text-center">Detalhes da Reunião</h5>
                     
                     <div class="mb-4">
                         <label class="form-label fw-bold">Tipo de Reunião</label>
@@ -71,7 +84,7 @@
                 <div id="step2" class="step-section">
                     <div class="d-flex align-items-center mb-4">
                         <button type="button" class="btn btn-link text-decoration-none p-0 me-3 text-dark" onclick="nextStep(1)"><i data-lucide="arrow-left"></i> Voltar</button>
-                        <h5 class="mb-0 text-center flex-grow-1" style="margin-left: -40px;">Passo 2: Cardápio</h5>
+                        <h5 class="mb-0 text-center flex-grow-1" style="margin-left: -40px;">Cardápio</h5>
                     </div>
 
                     <div class="category-pills">
@@ -117,7 +130,7 @@
                 <div id="step3" class="step-section">
                     <div class="d-flex align-items-center mb-4">
                         <button type="button" class="btn btn-link text-decoration-none p-0 me-3 text-dark" onclick="nextStep(2)"><i data-lucide="arrow-left"></i> Voltar</button>
-                        <h5 class="mb-0 text-center flex-grow-1" style="margin-left: -40px;">Passo 3: Resumo</h5>
+                        <h5 class="mb-0 text-center flex-grow-1" style="margin-left: -40px;">Resumo</h5>
                     </div>
 
                     <div class="comanda-receipt mb-4" id="comandaContent">
@@ -137,9 +150,19 @@
 
     <script>
         // -- Navigation --
+        function updateStepper(step) {
+            document.querySelectorAll('.stepper-item').forEach((item, index) => {
+                let s = index + 1;
+                item.classList.remove('active', 'completed');
+                if (s < step) item.classList.add('completed');
+                if (s === step) item.classList.add('active');
+            });
+        }
+
         function nextStep(step) {
             document.querySelectorAll('.step-section').forEach(el => el.classList.remove('active'));
             document.getElementById('step' + step).classList.add('active');
+            updateStepper(step);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
