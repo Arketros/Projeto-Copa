@@ -30,9 +30,9 @@ if ($res_user && $res_user->num_rows > 0) {
 
 $prioridade_calculada = $prioridade_usuario;
 if ($tipo_encontro == 'AGM') {
-    $prioridade_calculada = 0; 
+    $prioridade_calculada = 100; 
 } else if ($tipo_encontro == 'Executiva') {
-    $prioridade_calculada = min(1, $prioridade_usuario);
+    $prioridade_calculada = 50;
 }
 
 

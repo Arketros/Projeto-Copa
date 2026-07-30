@@ -6,7 +6,7 @@ $sql = "SELECT s.*, sa.nome_sala
             FROM solicitacao s 
             JOIN sala sa ON s.id_sala = sa.id_sala 
             WHERE s.status IN ('Pendente', 'Processando', 'Em Andamento') AND s.data_hora LIKE '{$hoje}%'
-            ORDER BY s.prioridade_calculada ASC, s.data_hora ASC";
+            ORDER BY s.prioridade_calculada DESC, s.data_hora ASC";
 $res = $conn->query($sql);
 $qtd = $res->num_rows;
 
@@ -45,8 +45,7 @@ if ($qtd > 0) {
                     <h5 class="order-card-title text-primary mb-1"><?php echo $row->nome_sala; ?></h5>
                     <div class="text-muted small mb-2"><?php echo $row->email_cliente; ?></div>
                     <div class="small">
-                        <strong>Reunião:</strong> <?php echo $row->tipo_encontro; ?> (<?php echo $row->quantidade_pessoas; ?>
-                        pes.)
+                        <strong>Reunião:</strong> <?php echo $row->tipo_encontro; ?> (<?php echo ($row->quantidade_pessoas == 0) ? 'Não informada' : $row->quantidade_pessoas . ' pes.'; ?>)
                     </div>
                 </div>
 
