@@ -4,7 +4,16 @@
 				$nome_cardapio 		= $_POST['nome_cardapio'];
 				$situacao_cardapio 	= $_POST['situacao_cardapio'];
 				$categoria_cardapio = $_POST['categoria_cardapio'];
-				$imagem_url 		= $_POST['imagem_url'];
+				
+				$imagem_url = '';
+				if (isset($_FILES['imagem_arquivo']) && $_FILES['imagem_arquivo']['error'] === UPLOAD_ERR_OK) {
+					$ext = pathinfo($_FILES['imagem_arquivo']['name'], PATHINFO_EXTENSION);
+					$new_name = uniqid() . '.' . $ext;
+					$dest = 'uploads/' . $new_name;
+					if (move_uploaded_file($_FILES['imagem_arquivo']['tmp_name'], $dest)) {
+						$imagem_url = $dest;
+					}
+				}
 
 				if (empty(trim($nome_cardapio)) || empty(trim($situacao_cardapio))) {
 					$_SESSION['toast_msg'] = 'Erro: O nome do item e a situação/disponibilidade não podem ficar vazios!'; $_SESSION['toast_type'] = 'danger'; header('Location: ' . $_SERVER['HTTP_REFERER']); 
@@ -38,7 +47,16 @@
 				$nome_cardapio 		= $_POST['nome_cardapio'];
 				$situacao_cardapio 	= $_POST['situacao_cardapio'];
 				$categoria_cardapio = $_POST['categoria_cardapio'];
-				$imagem_url 		= $_POST['imagem_url'];
+				
+				$imagem_url = $_POST['imagem_url_antiga'] ?? '';
+				if (isset($_FILES['imagem_arquivo']) && $_FILES['imagem_arquivo']['error'] === UPLOAD_ERR_OK) {
+					$ext = pathinfo($_FILES['imagem_arquivo']['name'], PATHINFO_EXTENSION);
+					$new_name = uniqid() . '.' . $ext;
+					$dest = 'uploads/' . $new_name;
+					if (move_uploaded_file($_FILES['imagem_arquivo']['tmp_name'], $dest)) {
+						$imagem_url = $dest;
+					}
+				}
 
 				if (empty(trim($nome_cardapio)) || empty(trim($situacao_cardapio))) {
 					$_SESSION['toast_msg'] = 'Erro: O nome do item e a situação/disponibilidade não podem ficar vazios!'; $_SESSION['toast_type'] = 'danger'; header('Location: ' . $_SERVER['HTTP_REFERER']); 

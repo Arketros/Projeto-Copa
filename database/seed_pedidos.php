@@ -8,30 +8,6 @@ try {
     
     echo "Conectado ao banco de dados com sucesso.<br>\n";
 
-    
-    $stmt = $pdo->query("SELECT COUNT(*) FROM cardapio");
-    if ($stmt->fetchColumn() < 10) {
-        $fake_cardapio = [
-            ['Café Expresso', 'Bebida', 'Ativo'],
-            ['Café com Leite', 'Bebida', 'Ativo'],
-            ['Chá de Camomila', 'Bebida', 'Ativo'],
-            ['Água com Gás', 'Bebida', 'Ativo'],
-            ['Suco de Laranja', 'Bebida', 'Ativo'],
-            ['Pão de Queijo', 'Lanche', 'Ativo'],
-            ['Biscoito Amanteigado', 'Lanche', 'Ativo'],
-            ['Misto Quente', 'Lanche', 'Ativo'],
-            ['Bolo de Cenoura', 'Lanche', 'Ativo'],
-            ['Croissant', 'Lanche', 'Ativo'],
-        ];
-        
-        $insertCardapio = $pdo->prepare("INSERT INTO cardapio (nome_cardapio, categoria_cardapio, situacao_cardapio, total_pedidos) VALUES (?, ?, ?, 0)");
-        foreach ($fake_cardapio as $item) {
-            $insertCardapio->execute([$item[0], $item[1], $item[2]]);
-        }
-        echo "Itens de cardápio fake inseridos.<br>\n";
-    }
-
-    
     $salas = $pdo->query("SELECT id_sala FROM sala")->fetchAll(PDO::FETCH_COLUMN);
     $usuarios = $pdo->query("SELECT email_usuario FROM usuario")->fetchAll(PDO::FETCH_COLUMN);
     $cardapios = $pdo->query("SELECT id_cardapio FROM cardapio")->fetchAll(PDO::FETCH_COLUMN);
@@ -40,7 +16,6 @@ try {
         die("Erro: É necessário ter pelo menos uma sala, um usuário e um item no cardápio para gerar pedidos fakes.");
     }
 
-    
     $tipos = ['Normal', 'Executiva', 'AGM'];
     $status_list = ['Pendente', 'Pendente', 'Pendente', 'Em Andamento', 'Finalizado']; 
     
@@ -55,9 +30,7 @@ try {
         $qtd_pessoas = rand(0, 10);
         $status = $status_list[array_rand($status_list)];
         
-        
         $prioridade = ($tipo == 'AGM') ? 0 : (($tipo == 'Executiva') ? 1 : rand(1, 3));
-        
         
         $dias_atras = rand(0, 2);
         $minutos_atras = rand(0, 1440);
@@ -66,13 +39,11 @@ try {
         $insertSolicitacao->execute([$id_sala, $email, $tipo, $qtd_pessoas, $status, $prioridade, $data_hora]);
         $id_solicitacao = $pdo->lastInsertId();
 
-        
         $num_itens = rand(1, 3);
         $itens_adicionados = [];
         
         for ($j = 0; $j < $num_itens; $j++) {
             $id_cardapio = $cardapios[array_rand($cardapios)];
-            
             
             if (in_array($id_cardapio, $itens_adicionados)) continue;
             

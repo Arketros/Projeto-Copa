@@ -13,6 +13,9 @@ CREATE TABLE IF NOT EXISTS cardapio (
     id_cardapio INTEGER PRIMARY KEY AUTOINCREMENT,
     nome_cardapio TEXT NOT NULL,
     situacao_cardapio TEXT NOT NULL,
+    categoria_cardapio TEXT,
+    imagem_url TEXT,
+    quantidade_disponivel INTEGER DEFAULT 100,
     total_pedidos INTEGER DEFAULT 0
 );
 

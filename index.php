@@ -60,8 +60,8 @@ if (isset($_REQUEST['sala']) || isset($_SESSION['sala_hash'])) {
     } else {
         if ($req_page == 'cliente-painel') {
              include('cliente-painel.php');
-        } elseif ($req_page == 'cliente-meus-pedidos') {
-             include('cliente-meus-pedidos.php');
+        } elseif ($req_page == 'cliente-fila') {
+             include('cliente-fila.php');
         } elseif (@$_REQUEST['page'] == 'cliente-fazer-pedido') {
              include('cliente-fazer-pedido.php');
         } elseif (@$_REQUEST['page'] == 'cliente-historico') {
@@ -70,7 +70,7 @@ if (isset($_REQUEST['sala']) || isset($_SESSION['sala_hash'])) {
              include('cliente-perfil.php');
         } else {
              
-             include('cliente-fila.php');
+             include('cliente-meus-pedidos.php');
         }
         exit; 
     }

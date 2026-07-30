@@ -9,6 +9,7 @@
 <form action="?page=salvar-cardapio" method="POST" enctype="multipart/form-data">
 	<input type="hidden" name="acao" value="editar">
 	<input type="hidden" name="id_cardapio" value="<?php print $row->id_cardapio; ?>">
+    <input type="hidden" name="imagem_url_antiga" value="<?php print htmlspecialchars($row->imagem_url); ?>">
 	<div class="mb-3">
 		<label>Nome do item</label>
 		<input type="text" name="nome_cardapio" value="<?php print $row->nome_cardapio; ?>" class="form-control" required>
