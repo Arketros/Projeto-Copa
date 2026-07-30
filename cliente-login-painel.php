@@ -29,7 +29,12 @@
                     $_SESSION['usuario_nome'] = $row->nome_usuario;
                     $_SESSION['usuario_nivel'] = $row->nivel_usuario;
                     $_SESSION['usuario_email'] = $row->email_usuario;
-                    echo "<script>window.location.href='index.php?page=painel-pedidos';</script>";
+                    echo "<script>
+                        localStorage.setItem('usuario_nome', '" . addslashes($row->nome_usuario) . "');
+                        localStorage.setItem('usuario_email', '" . addslashes($row->email_usuario) . "');
+                        localStorage.setItem('usuario_nivel', '" . addslashes($row->nivel_usuario) . "');
+                        window.location.href='index.php?page=painel-pedidos';
+                    </script>";
                     exit;
                 } else {
                     echo "<div class='alert alert-danger'>Senha incorreta.</div>";
