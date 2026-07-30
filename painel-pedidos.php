@@ -21,7 +21,7 @@ if ($qtd > 0) {
         $res_itens = $conn->query($sql_itens);
         $itens_str = "";
         while ($it = $res_itens->fetch_object()) {
-            $itens_str .= "<div class='mb-2 pb-2' style='border-bottom: 1px solid #f0f0f5;'><i data-lucide='coffee' style='width:16px;height:16px;' class='me-2 text-muted'></i> <strong>{$it->quantidade}x {$it->nome_cardapio}</strong></div>";
+            $itens_str .= "<div class='comanda-row'><span>{$it->quantidade}x {$it->nome_cardapio}</span></div>";
         }
 
         $bg_status = $row->status == 'Pendente' ? 'bg-warning text-dark' : 'bg-info text-dark';
@@ -68,44 +68,23 @@ if ($qtd > 0) {
                 <h5 class="mb-0">Pedido #<?php echo $row->id_solicitacao; ?></h5>
             </div>
             <div class="bottom-sheet-content">
-                <div class="mb-4 pb-4 border-bottom text-start">
-                    <div class="row g-3">
-                        <div class="col-6">
-                            <div class="text-muted small mb-1">Sala</div>
-                            <div class="fw-bold fs-6 text-dark d-flex align-items-center">
-                                <i data-lucide="map-pin" class="me-2 text-primary" style="width:16px;height:16px;"></i>
-                                <?php echo $row->nome_sala; ?>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-muted small mb-1">Solicitante</div>
-                            <div class="fw-bold fs-6 text-dark d-flex align-items-center text-truncate"
-                                title="<?php echo $row->email_cliente; ?>">
-                                <i data-lucide="user" class="me-2 text-primary" style="width:16px;height:16px;"></i>
-                                <?php echo explode('@', $row->email_cliente)[0]; ?>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-muted small mb-1">Reunião</div>
-                            <div class="fw-bold fs-6 text-dark d-flex align-items-center">
-                                <i data-lucide="briefcase" class="me-2 text-primary" style="width:16px;height:16px;"></i>
-                                <?php echo $row->tipo_encontro; ?>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-muted small mb-1">Pessoas</div>
-                            <div class="fw-bold fs-6 text-dark d-flex align-items-center">
-                                <i data-lucide="users" class="me-2 text-primary" style="width:16px;height:16px;"></i>
-                                <?php echo $row->quantidade_pessoas; ?> pes.
-                            </div>
-                        </div>
+                <div class="comanda-receipt mb-4 text-start" style="margin: 0 auto; max-width: 100%;">
+                    <div class="comanda-header">
+                        <h4>Mesa: <?php echo $row->nome_sala; ?></h4>
+                        <div class="small mt-1">Hora do Pedido: <?php echo date('H:i', strtotime($row->data_hora)); ?></div>
                     </div>
-                </div>
-                <h6 class="fw-bold mb-3 text-start">Itens Solicitados:</h6>
-                <div class="fs-6 mb-4 text-start">
+                    <div class="mb-3">
+                        <div class="comanda-row fw-bold"><span>Reunião:</span> <span><?php echo $row->tipo_encontro; ?></span></div>
+                        <div class="comanda-row fw-bold"><span>Pessoas:</span> <span><?php echo $row->quantidade_pessoas; ?> pes.</span></div>
+                    </div>
+                    <div class="comanda-divider"></div>
+                    <div class="mb-2 fw-bold text-center">ITENS SOLICITADOS</div>
                     <?php echo $itens_str; ?>
+                    <div class="comanda-divider"></div>
+                    <div class="text-center small mt-3">Solicitante: <?php echo explode('@', $row->email_cliente)[0]; ?></div>
                 </div>
-                <div class="d-flex flex-column gap-2 mt-4">
+
+                <div class="d-flex flex-column gap-2 mt-2">
                     <button class="btn btn-info w-100 py-3 fw-bold text-white"
                         onclick="location.href='?page=acao-pedido&acao=receber&id=<?php echo $row->id_solicitacao; ?>';">Executar</button>
                     <button class="btn btn-success w-100 py-3 fw-bold"
