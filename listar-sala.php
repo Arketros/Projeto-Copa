@@ -1,8 +1,21 @@
 <script src="js/qrcode.min.js"></script>
 <script>
+    function addLogoToSVG(svgString, size) {
+        var center = size / 2;
+        var rectW = size * 0.28;
+        var rectH = size * 0.14;
+        var fontSize = size * 0.09;
+        var logoXML = '<g transform="translate(' + center + ', ' + center + ')">' +
+            '<rect x="' + (-rectW / 2) + '" y="' + (-rectH / 2) + '" width="' + rectW + '" height="' + rectH + '" fill="white" rx="2"/>' +
+            '<text x="0" y="1" font-family="Arial" font-size="' + fontSize + '" font-weight="bold" fill="black" text-anchor="middle" dominant-baseline="middle">Seven - CSC</text>' +
+            '</g>';
+        return svgString.replace('</svg>', logoXML + '</svg>');
+    }
+
     function downloadSVG(url, filename) {
-        var svgData = new QRCode({ content: url, padding: 4, width: 256, height: 256, color: "#000000", background: "#ffffff", ecl: "M" }).svg();
-        var blob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+        var svgData = new QRCode({ content: url, padding: 4, width: 256, height: 256, color: "#000000", background: "#ffffff", ecl: "H" }).svg();
+        svgData = addLogoToSVG(svgData, 256);
+        var blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
         var blobUrl = URL.createObjectURL(blob);
         var link = document.createElement("a");
         link.href = blobUrl;
@@ -16,24 +29,24 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="m-0">Salas</h1>
     <?php if ($is_admin): ?>
-    <button class="btn btn-primary" onclick="openSalaModal()">+ Cadastrar Nova</button>
+        <button class="btn btn-primary" onclick="openSalaModal()">+ Cadastrar Nova</button>
     <?php endif; ?>
 </div>
 <?php
-	$sql = "SELECT * FROM sala WHERE status_sala != 'Excluído'";
-	$res = $conn->query($sql);
-	$qtd = $res->num_rows;
+$sql = "SELECT * FROM sala WHERE status_sala != 'Excluído'";
+$res = $conn->query($sql);
+$qtd = $res->num_rows;
 
-	if($qtd > 0){
-		print "<div class='row'>";
-		while($row = $res->fetch_object()){
-            
-            $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-            $host = $_SERVER['HTTP_HOST'];
-            $path = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            $url_qr = $protocol . "://" . $host . $path . "/?sala=" . $row->hash_url;
+if ($qtd > 0) {
+    print "<div class='row'>";
+    while ($row = $res->fetch_object()) {
 
-            print "
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+        $host = $_SERVER['HTTP_HOST'];
+        $path = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        $url_qr = $protocol . "://" . $host . $path . "/?sala=" . $row->hash_url;
+
+        print "
             <div class='col-md-6 col-lg-4 mb-4'>
                 <div class='card shadow-sm border-0 h-100' style='border-radius: 12px;'>
                     <div class='card-body text-center d-flex flex-column'>
@@ -42,7 +55,8 @@
                         
                         <div id='qr-{$row->id_sala}' class='d-flex justify-content-center mb-3'></div>
                         <script>
-                          var svg_{$row->id_sala} = new QRCode({ content: '{$url_qr}', padding: 0, width: 140, height: 140, color: '#000000', background: '#ffffff', ecl: 'M' }).svg();
+                          var svg_{$row->id_sala} = new QRCode({ content: '{$url_qr}', padding: 0, width: 140, height: 140, color: '#000000', background: '#ffffff', ecl: 'H' }).svg();
+                          svg_{$row->id_sala} = addLogoToSVG(svg_{$row->id_sala}, 140);
                           document.getElementById('qr-{$row->id_sala}').innerHTML = svg_{$row->id_sala};
                         </script>
                         
@@ -58,26 +72,26 @@
                             </button>
             ";
 
-			if ($is_admin) {
-			    print "
+        if ($is_admin) {
+            print "
                             <div class='d-flex gap-2 mt-2 pt-2 border-top'>
                                 <button class='btn btn-success flex-fill' onclick=\"location.href='?page=editar-sala&id_sala={$row->id_sala}';\">Editar</button>
                                 <button class='btn btn-danger flex-fill' onclick=\"confirmDelete('?page=salvar-sala&acao=excluir&id_sala={$row->id_sala}')\">Excluir</button>
                             </div>
                 ";
-            }
+        }
 
-			print "
+        print "
                         </div>
                     </div>
                 </div>
             </div>
             ";
-		}
-		print "</div>";
-	}else{
-		print "<p class='alert alert-warning'>Não encontrou resultados!</p>";
-	}
+    }
+    print "</div>";
+} else {
+    print "<p class='alert alert-warning'>Não encontrou resultados!</p>";
+}
 ?>
 
 
@@ -99,7 +113,8 @@
                 <input type="number" name="capacidade" class="form-control" value="6" min="1" max="20" required>
             </div>
             <button type="submit" class="btn btn-primary w-100 py-3">Salvar Sala</button>
-            <button type="button" class="btn btn-outline-secondary w-100 py-2 mt-2" onclick="closeSalaModal()">Cancelar</button>
+            <button type="button" class="btn btn-outline-secondary w-100 py-2 mt-2"
+                onclick="closeSalaModal()">Cancelar</button>
         </form>
     </div>
 </div>
