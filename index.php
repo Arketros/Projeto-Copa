@@ -98,8 +98,9 @@ if (@$_REQUEST['acao'] == 'login') {
 }
 
 if (@$_REQUEST['acao'] == 'logout') {
+    $sala = isset($_SESSION['sala_hash']) ? "?sala=" . urlencode($_SESSION['sala_hash']) : "";
     session_destroy();
-    header("Location: index.php");
+    echo "<script>localStorage.clear(); window.location.href='index.php" . $sala . "';</script>";
     exit;
 }
 
