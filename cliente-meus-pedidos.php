@@ -115,6 +115,37 @@
         </div>
     </div>
 
+    <!-- Modal Cancelamento Cliente -->
+    <div class="modal fade" id="cancelClientModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-header bg-warning text-dark border-0">
+                    <h5 class="modal-title">Confirmar Cancelamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body py-4 text-center">
+                    <p class="mb-0 fs-5">Tem certeza que deseja cancelar este pedido?</p>
+                </div>
+                <div class="modal-footer border-0 d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-secondary px-4 py-2" data-bs-dismiss="modal">Voltar</button>
+                    <form id="cancelClientForm" method="POST">
+                        <input type="hidden" name="acao" value="cancelar_pedido_individual">
+                        <input type="hidden" name="id_solicitacao" id="cancelClientId" value="">
+                        <button type="submit" class="btn btn-danger px-4 py-2">Sim, Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function confirmCancelClient(id) {
+            document.getElementById('cancelClientId').value = id;
+            var myModal = new bootstrap.Modal(document.getElementById('cancelClientModal'));
+            myModal.show();
+        }
+    </script>
+
     <?php include('cliente-dock.php'); ?>
 </body>
 

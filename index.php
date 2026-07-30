@@ -295,14 +295,7 @@ if (!$is_admin && in_array($page, $admin_only_pages)) {
                 </div>
                 <div class="modal-footer border-0 d-flex justify-content-between">
                     <button type="button" class="btn btn-outline-secondary px-4 py-2" data-bs-dismiss="modal">Voltar</button>
-                    
                     <a href="#" id="confirmCancelBtn" class="btn btn-danger px-4 py-2">Sim, Cancelar</a>
-                    
-                    <form id="confirmCancelForm" method="POST" style="display:none;">
-                        <input type="hidden" name="acao" value="cancelar_pedido_individual">
-                        <input type="hidden" name="id_solicitacao" id="cancelFormId" value="">
-                    </form>
-                    <button type="button" id="confirmCancelSubmitBtn" class="btn btn-danger px-4 py-2" style="display:none;" onclick="document.getElementById('confirmCancelForm').submit();">Sim, Cancelar</button>
                 </div>
             </div>
         </div>
@@ -310,16 +303,7 @@ if (!$is_admin && in_array($page, $admin_only_pages)) {
     
     <script>
         function confirmCancel(url) {
-            document.getElementById('confirmCancelBtn').style.display = 'block';
-            document.getElementById('confirmCancelSubmitBtn').style.display = 'none';
             document.getElementById('confirmCancelBtn').href = url;
-            var myModal = new bootstrap.Modal(document.getElementById('cancelConfirmModal'));
-            myModal.show();
-        }
-        function confirmCancelClient(id) {
-            document.getElementById('confirmCancelBtn').style.display = 'none';
-            document.getElementById('confirmCancelSubmitBtn').style.display = 'block';
-            document.getElementById('cancelFormId').value = id;
             var myModal = new bootstrap.Modal(document.getElementById('cancelConfirmModal'));
             myModal.show();
         }
