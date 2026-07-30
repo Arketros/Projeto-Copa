@@ -34,17 +34,31 @@
                 exit;
             }
         ?>
-        <h3 class="mb-2">Bem-vindo à Copa Seven</h3>
-        <p class="text-muted mb-4">Você está na <strong><?php echo $nome_sala; ?></strong></p>
+        <div id="identificacao-form" style="display: none;">
+            <h3 class="mb-2">Bem-vindo à Copa Seven</h3>
+            <p class="text-muted mb-4">Você está na <strong><?php echo $nome_sala; ?></strong></p>
 
-        <form action="index.php?sala=<?php echo $hash; ?>" method="POST">
-            <input type="hidden" name="acao" value="identificar_cliente">
-            <div class="mb-4 text-start">
-                <label>Identifique-se com seu E-mail</label>
-                <input type="email" name="email" class="form-control" placeholder="seu@email.com" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Acessar Cardápio</button>
-        </form>
+            <form id="client-login-form" action="index.php?sala=<?php echo $hash; ?>" method="POST">
+                <input type="hidden" name="acao" value="identificar_cliente">
+                <div class="mb-4 text-start">
+                    <label>Identifique-se com seu E-mail</label>
+                    <input type="email" id="email-input" name="email" class="form-control" placeholder="seu@email.com" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Acessar Cardápio</button>
+            </form>
+        </div>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                let savedClient = localStorage.getItem('cliente_email');
+                if (savedClient) {
+                    document.getElementById('email-input').value = savedClient;
+                    document.getElementById('client-login-form').submit();
+                } else {
+                    document.getElementById('identificacao-form').style.display = 'block';
+                }
+            });
+        </script>
     </div>
 
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>

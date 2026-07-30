@@ -4,9 +4,7 @@ session_start();
 include('config.php');
 
 
-if (!isset($_SESSION['cliente_email']) && isset($_COOKIE['cliente_email'])) {
-    $_SESSION['cliente_email'] = $_COOKIE['cliente_email'];
-}
+
 
 
 if (!empty($_REQUEST['sala']) || !empty($_SESSION['sala_hash'])) {
@@ -18,9 +16,9 @@ if (!empty($_REQUEST['sala']) || !empty($_SESSION['sala_hash'])) {
     if (@$_REQUEST['acao'] == 'sair_cliente') {
         $sala = !empty($_REQUEST['sala']) ? $_REQUEST['sala'] : (!empty($_SESSION['sala_hash']) ? $_SESSION['sala_hash'] : "");
         unset($_SESSION['cliente_email']);
-        setcookie('cliente_email', '', time() - 3600);
         // keep sala_hash so they don't get kicked out of the room context
-        header("Location: index.php" . ($sala ? "?sala=" . urlencode($sala) : ""));
+        $redirect = "index.php" . ($sala ? "?sala=" . urlencode($sala) : "");
+        echo "<script>localStorage.clear(); window.location.href='{$redirect}';</script>";
         exit;
     }
     
@@ -32,7 +30,6 @@ if (!empty($_REQUEST['sala']) || !empty($_SESSION['sala_hash'])) {
         
         if ($res_check && $res_check->num_rows > 0) {
             $_SESSION['cliente_email'] = $email_informado;
-            setcookie('cliente_email', $email_informado, time() + (86400 * 30)); 
             header("Location: index.php");
         } else {
             $_SESSION['toast_msg'] = 'E-mail não encontrado no sistema. Por favor, contate o administrador.'; 
@@ -135,6 +132,14 @@ if (!$is_admin && in_array($page, $admin_only_pages)) {
         localStorage.setItem('usuario_nome', '<?php echo addslashes($_SESSION['usuario_nome'] ?? ""); ?>');
         localStorage.setItem('usuario_email', '<?php echo addslashes($_SESSION['usuario_email'] ?? ""); ?>');
         localStorage.setItem('usuario_nivel', '<?php echo addslashes($_SESSION['usuario_nivel'] ?? ""); ?>');
+        localStorage.removeItem('cliente_email');
+    </script>
+    <?php elseif (isset($_SESSION['cliente_email'])): ?>
+    <script>
+        localStorage.setItem('cliente_email', '<?php echo addslashes($_SESSION['cliente_email'] ?? ""); ?>');
+        localStorage.removeItem('usuario_nome');
+        localStorage.removeItem('usuario_email');
+        localStorage.removeItem('usuario_nivel');
     </script>
     <?php endif; ?>
 </head>

@@ -20,11 +20,6 @@
             max-width: 400px;
         }
     </style>
-    <script>
-        localStorage.removeItem('usuario_nome');
-        localStorage.removeItem('usuario_email');
-        localStorage.removeItem('usuario_nivel');
-    </script>
 </head>
 
 <body>
@@ -34,7 +29,7 @@
             <input type="hidden" name="acao" value="login">
             <div class="mb-3 text-start">
                 <label>E-mail</label>
-                <input type="email" name="email" class="form-control" required>
+                <input type="email" id="admin-email-input" name="email" class="form-control" required>
             </div>
             <div class="mb-4 text-start">
                 <label>Senha</label>
@@ -43,6 +38,15 @@
             <button type="submit" class="btn btn-primary w-100">Entrar</button>
         </form>
     </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let savedEmail = localStorage.getItem('usuario_email');
+            if (savedEmail) {
+                document.getElementById('admin-email-input').value = savedEmail;
+            }
+        });
+    </script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     
     <?php if(isset($_SESSION['toast_msg'])): ?>
