@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,20 +8,24 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/custom.css?v=<?php echo time(); ?>">
 </head>
+
 <body>
     <div class="blue-header">
         <?php
-        if (!isset($_SESSION['cliente_email'])) { header("Location: index.php"); exit; }
-        
+        if (!isset($_SESSION['cliente_email'])) {
+            header("Location: index.php");
+            exit;
+        }
+
         $hash = isset($_SESSION['sala_hash']) ? $_SESSION['sala_hash'] : '';
         $sql = "SELECT id_sala, nome_sala, capacidade FROM sala WHERE hash_url = '{$hash}' AND status_sala != 'Excluído'";
         $res = $conn->query($sql);
-        
+
         if (!$res || $res->num_rows == 0) {
             echo "</div><div class='container mt-5'><div class='alert alert-danger'>Erro: Sala não encontrada. Por favor, leia o QR Code da mesa novamente.</div></div></body></html>";
             exit;
         }
-        
+
         $sala = $res->fetch_object();
 
         $capacidade = isset($sala->capacidade) ? (int) $sala->capacidade : 6;
@@ -35,7 +40,7 @@
         <div class="custom-card floating-card">
             <form id="pedidoForm" action="cliente-processar.php" method="POST">
                 <input type="hidden" name="id_sala" value="<?php echo $sala->id_sala; ?>">
-                
+
                 <!-- Stepper Indicator -->
                 <div class="stepper-wrapper mb-4 text-center">
                     <div class="stepper-item active" id="step-ind-1">
@@ -52,10 +57,12 @@
                 <!-- STEP 1: Meeting Info -->
                 <div id="step1" class="step-section active">
                     <div class="d-flex align-items-center mb-4">
-                        <button type="button" class="btn btn-link text-decoration-none p-0 me-3 text-dark" onclick="window.location.href='index.php?page=cliente-meus-pedidos'"><i data-lucide="arrow-left"></i> Voltar</button>
+                        <button type="button" class="btn btn-link text-decoration-none p-0 me-3 text-dark"
+                            onclick="window.location.href='index.php?page=cliente-meus-pedidos'"><i
+                                data-lucide="arrow-left"></i> Voltar</button>
                         <h5 class="mb-0 text-center flex-grow-1" style="margin-left: -40px;">Detalhes da Reunião</h5>
                     </div>
-                    
+
                     <div class="mb-4">
                         <label class="form-label fw-bold">Tipo de Reunião</label>
                         <select name="tipo_encontro" id="tipo_encontro_select" class="form-select form-select-lg">
@@ -69,9 +76,6 @@
 
                     <div class="mb-4">
                         <label class="form-label fw-bold d-block text-center">Quantas pessoas?</label>
-                        <input type="number" name="quantidade_pessoas" id="qtd_pessoas_input" class="form-control form-control-lg text-center mb-3 fw-bold fs-3" style="max-width: 150px; margin: 0 auto;" min="0" value="0" onchange="syncChairs()">
-                        
-                        <div class="text-center text-muted small mb-3">Ou clique nas cadeiras da mesa:</div>
                         <div class="meeting-room mb-2">
                             <div class="chair-row">
                                 <?php for ($i = 0; $i < $cadeiras_cima; $i++): ?>
@@ -85,22 +89,36 @@
                                 <?php endfor; ?>
                             </div>
                         </div>
+                        <div class="text-center text-muted small mb-3">Ou digite o número de pessoas:</div>
+                        <input type="number" name="quantidade_pessoas" id="qtd_pessoas_input"
+                            class="form-control form-control-lg text-center mb-3 fw-bold fs-3"
+                            style="max-width: 150px; margin: 0 auto;" min="0" value="0" onchange="syncChairs()">
+
+
                     </div>
 
-                    <button type="button" class="btn btn-primary w-100 py-3 font-weight-bold" onclick="validateStep1()">Avançar para o Cardápio <i data-lucide="arrow-right" class="ms-2" style="width:18px;"></i></button>
+                    <button type="button" class="btn btn-primary w-100 py-3 font-weight-bold"
+                        onclick="validateStep1()">Avançar para o Cardápio <i data-lucide="arrow-right" class="ms-2"
+                            style="width:18px;"></i></button>
                 </div>
 
                 <!-- STEP 2: Menu Items -->
                 <div id="step2" class="step-section">
                     <div class="d-flex align-items-center mb-4">
-                        <button type="button" class="btn btn-link text-decoration-none p-0 me-3 text-dark" onclick="nextStep(1)"><i data-lucide="arrow-left"></i> Voltar</button>
+                        <button type="button" class="btn btn-link text-decoration-none p-0 me-3 text-dark"
+                            onclick="nextStep(1)"><i data-lucide="arrow-left"></i> Voltar</button>
                         <h5 class="mb-0 text-center flex-grow-1" style="margin-left: -40px;">Cardápio</h5>
                     </div>
 
                     <div class="category-pills">
-                        <button type="button" class="category-pill active" onclick="filterCategory('Todos', this)">Tudo</button>
-                        <button type="button" class="category-pill d-flex align-items-center" onclick="filterCategory('Bebida', this)"><i data-lucide="coffee" style="width: 16px; height: 16px; margin-right: 6px;"></i> Bebidas</button>
-                        <button type="button" class="category-pill d-flex align-items-center" onclick="filterCategory('Lanche', this)"><i data-lucide="cookie" style="width: 16px; height: 16px; margin-right: 6px;"></i> Lanches</button>
+                        <button type="button" class="category-pill active"
+                            onclick="filterCategory('Todos', this)">Tudo</button>
+                        <button type="button" class="category-pill d-flex align-items-center"
+                            onclick="filterCategory('Bebida', this)"><i data-lucide="coffee"
+                                style="width: 16px; height: 16px; margin-right: 6px;"></i> Bebidas</button>
+                        <button type="button" class="category-pill d-flex align-items-center"
+                            onclick="filterCategory('Lanche', this)"><i data-lucide="cookie"
+                                style="width: 16px; height: 16px; margin-right: 6px;"></i> Lanches</button>
                     </div>
 
                     <div class="menu-list mb-4">
@@ -110,18 +128,25 @@
                         if ($res && $res->num_rows > 0) {
                             while ($row = $res->fetch_object()) {
                                 ?>
-                                <label class="selectable-card w-100" data-category="<?php echo $row->categoria_cardapio; ?>" data-name="<?php echo htmlspecialchars($row->nome_cardapio); ?>" onclick="toggleItemSelect(this, event)">
+                                <label class="selectable-card w-100" data-category="<?php echo $row->categoria_cardapio; ?>"
+                                    data-name="<?php echo htmlspecialchars($row->nome_cardapio); ?>"
+                                    onclick="toggleItemSelect(this, event)">
                                     <div class="card-left">
-                                        <strong class="d-block" style="font-size: 1.1rem;"><?php echo $row->nome_cardapio; ?></strong>
+                                        <strong class="d-block"
+                                            style="font-size: 1.1rem;"><?php echo $row->nome_cardapio; ?></strong>
                                     </div>
                                     <div class="d-flex align-items-center">
                                         <div class="qty-control" onclick="event.stopPropagation();">
                                             <button type="button" class="qty-btn" onclick="updateQty(this, -1)">-</button>
-                                            <input type="number" name="itens[<?php echo $row->id_cardapio; ?>]" class="qty-input item-qty-val" value="0" min="0" onchange="checkCardState(this)">
+                                            <input type="number" name="itens[<?php echo $row->id_cardapio; ?>]"
+                                                class="qty-input item-qty-val" value="0" min="0"
+                                                onchange="checkCardState(this)">
                                             <button type="button" class="qty-btn" onclick="updateQty(this, 1)">+</button>
                                         </div>
                                         <?php if (!empty($row->imagem_url)): ?>
-                                            <div class="card-right-image" style="background-image: url('<?php echo $row->imagem_url; ?>'); margin-left: 15px;"></div>
+                                            <div class="card-right-image"
+                                                style="background-image: url('<?php echo $row->imagem_url; ?>'); margin-left: 15px;">
+                                            </div>
                                         <?php endif; ?>
                                     </div>
                                 </label>
@@ -133,23 +158,28 @@
                         ?>
                     </div>
 
-                    <button type="button" class="btn btn-primary w-100 py-3 font-weight-bold" onclick="goToStep3()">Ver Resumo do Pedido <i data-lucide="arrow-right" class="ms-2" style="width:18px;"></i></button>
+                    <button type="button" class="btn btn-primary w-100 py-3 font-weight-bold" onclick="goToStep3()">Ver
+                        Resumo do Pedido <i data-lucide="arrow-right" class="ms-2" style="width:18px;"></i></button>
                 </div>
 
                 <!-- STEP 3: Summary -->
                 <div id="step3" class="step-section">
                     <div class="d-flex align-items-center mb-4">
-                        <button type="button" class="btn btn-link text-decoration-none p-0 me-3 text-dark" onclick="nextStep(2)"><i data-lucide="arrow-left"></i> Voltar</button>
+                        <button type="button" class="btn btn-link text-decoration-none p-0 me-3 text-dark"
+                            onclick="nextStep(2)"><i data-lucide="arrow-left"></i> Voltar</button>
                         <h5 class="mb-0 text-center flex-grow-1" style="margin-left: -40px;">Resumo</h5>
                     </div>
 
                     <div class="comanda-receipt mb-4" id="comandaContent">
                         <!-- Populated by JS -->
                     </div>
-                    
-                    <div id="emptyOrderAlert" class="alert alert-danger d-none text-center">Você não selecionou nenhum item do cardápio!</div>
 
-                    <button type="submit" class="btn btn-success w-100 py-3 font-weight-bold fs-5 shadow" id="btnConfirmarPedido">Enviar Pedido <i data-lucide="check" class="ms-2" style="width:20px;"></i></button>
+                    <div id="emptyOrderAlert" class="alert alert-danger d-none text-center">Você não selecionou nenhum
+                        item do cardápio!</div>
+
+                    <button type="submit" class="btn btn-success w-100 py-3 font-weight-bold fs-5 shadow"
+                        id="btnConfirmarPedido">Enviar Pedido <i data-lucide="check" class="ms-2"
+                            style="width:20px;"></i></button>
                 </div>
 
             </form>
@@ -198,13 +228,13 @@
             let containerCima = document.querySelectorAll('.chair-row')[0];
             let containerBaixo = document.querySelectorAll('.chair-row')[1];
             let maxCapacidade = <?php echo $capacidade; ?>;
-            
+
             if (val > currentChairs) {
                 let diff = val - currentChairs;
-                for (let i=0; i<diff; i++) {
+                for (let i = 0; i < diff; i++) {
                     let newChair = document.createElement('div');
                     newChair.className = 'chair chair-extra';
-                    newChair.onclick = function() { toggleChair(this); };
+                    newChair.onclick = function () { toggleChair(this); };
                     if (containerCima.children.length <= containerBaixo.children.length) {
                         containerCima.appendChild(newChair);
                     } else {
@@ -214,14 +244,14 @@
             } else if (val < currentChairs && currentChairs > maxCapacidade) {
                 let targetChairs = Math.max(maxCapacidade, val);
                 let diff = currentChairs - targetChairs;
-                for (let i=0; i<diff; i++) {
+                for (let i = 0; i < diff; i++) {
                     let extras = document.querySelectorAll('.chair-extra');
                     if (extras.length > 0) {
                         extras[extras.length - 1].remove();
                     }
                 }
             }
-            
+
             let chairs = document.querySelectorAll('.chair');
             chairs.forEach((chair, index) => {
                 if (index < val) {
@@ -279,10 +309,10 @@
             let tipo = document.getElementById('tipo_encontro_select');
             let nomeTipo = tipo.options[tipo.selectedIndex].text;
             let qtdPessoas = parseInt(document.getElementById('qtd_pessoas_input').value) || 0;
-            
+
             let itemsHtml = '';
             let hasItems = false;
-            
+
             document.querySelectorAll('.selectable-card.selected').forEach(card => {
                 let name = card.getAttribute('data-name');
                 let qty = parseInt(card.querySelector('.qty-input').value) || 0;
@@ -295,7 +325,7 @@
             let comandaHtml = `
                 <div class="comanda-header">
                     <h4>Mesa: <?php echo $sala->nome_sala; ?></h4>
-                    <div class="small mt-1">Data: ${new Date().toLocaleDateString('pt-BR')} ${new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'})}</div>
+                    <div class="small mt-1">Data: ${new Date().toLocaleDateString('pt-BR')} ${new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</div>
                 </div>
                 <div class="mb-3">
                     <div class="comanda-row fw-bold"><span>Reunião:</span> <span>${nomeTipo}</span></div>
@@ -307,9 +337,9 @@
                 <div class="comanda-divider"></div>
                 <div class="text-center small mt-3">Solicitante: <?php echo explode('@', $_SESSION['cliente_email'])[0]; ?></div>
             `;
-            
+
             document.getElementById('comandaContent').innerHTML = comandaHtml;
-            
+
             if (!hasItems) {
                 document.getElementById('emptyOrderAlert').classList.remove('d-none');
                 document.getElementById('btnConfirmarPedido').disabled = true;
@@ -317,14 +347,15 @@
                 document.getElementById('emptyOrderAlert').classList.add('d-none');
                 document.getElementById('btnConfirmarPedido').disabled = false;
             }
-            
+
             nextStep(3);
         }
 
         // Initialize chairs on load
-        window.onload = function() {
+        window.onload = function () {
             syncChairs();
         };
     </script>
 </body>
+
 </html>
