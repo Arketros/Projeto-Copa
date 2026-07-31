@@ -35,11 +35,11 @@
 <div class="mb-3">
     <label>Prioridade de Atendimento</label>
     		<select name="prioridade_atendimento" class="form-select">
-			<option value="1" <?php print($row->prioridade_atendimento==1?"selected":""); ?>>Prioridade Máxima (Nível 1)</option>
-			<option value="2" <?php print($row->prioridade_atendimento==2?"selected":""); ?>>Prioridade Alta (Nível 2)</option>
-			<option value="3" <?php print($row->prioridade_atendimento==3?"selected":""); ?>>Prioridade Média (Nível 3)</option>
-			<option value="4" <?php print($row->prioridade_atendimento==4?"selected":""); ?>>Prioridade Baixa (Nível 4)</option>
-			<option value="5" <?php print($row->prioridade_atendimento==5?"selected":""); ?>>Sem Prioridade (Nível 5)</option>
+			<option value="1" <?php print($row->prioridade_atendimento==1?"selected":""); ?>>Nível 1</option>
+			<option value="2" <?php print($row->prioridade_atendimento==2?"selected":""); ?>>Nível 2</option>
+			<option value="3" <?php print($row->prioridade_atendimento==3?"selected":""); ?>>Nível 3</option>
+			<option value="4" <?php print($row->prioridade_atendimento==4?"selected":""); ?>>Nível 4</option>
+			<option value="5" <?php print($row->prioridade_atendimento==5?"selected":""); ?>>Nível 5</option>
 		</select>
 </div>
 
