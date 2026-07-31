@@ -44,3 +44,6 @@ if ($res_nivel && $res_nivel->num_rows > 0) {
 <script>
     lucide.createIcons();
 </script>
+<?php if (!isset($is_admin_flow_from_mobile)): ?>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<?php endif; ?>

@@ -92,7 +92,7 @@
                         <div class="text-center text-muted small mb-3">Ou digite o número de pessoas:</div>
                         <input type="number" name="quantidade_pessoas" id="qtd_pessoas_input"
                             class="form-control form-control-lg text-center mb-3 fw-bold fs-3"
-                            style="max-width: 150px; margin: 0 auto;" min="0" value="0" onchange="syncChairs()">
+                            style="max-width: 150px; margin: 0 auto;" min="0" value="0" onchange="syncChairs()" onkeydown="if(event.key === 'Enter') { event.preventDefault(); validateStep1(); }">
 
 
                     </div>
@@ -140,7 +140,7 @@
                                             <button type="button" class="qty-btn" onclick="updateQty(this, -1)">-</button>
                                             <input type="number" name="itens[<?php echo $row->id_cardapio; ?>]"
                                                 class="qty-input item-qty-val" value="0" min="0"
-                                                onchange="checkCardState(this)">
+                                                onchange="checkCardState(this)" onkeydown="if(event.key === 'Enter') { event.preventDefault(); this.blur(); }">
                                             <button type="button" class="qty-btn" onclick="updateQty(this, 1)">+</button>
                                         </div>
                                         <?php if (!empty($row->imagem_url)): ?>
