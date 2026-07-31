@@ -25,6 +25,7 @@
                             WHERE s.email_cliente = '{$email}' AND s.status = 'Finalizado' 
                             ORDER BY s.data_hora DESC LIMIT 50";
                     $res = $conn->query($sql);
+                    $modals_html = "";
                     
                     if ($res && $res->num_rows > 0) {
                         while($row = $res->fetch_object()){
@@ -55,6 +56,7 @@
                             </div>
                             
                             <!-- Modal for this item -->
+                            <?php ob_start(); ?>
                             <div class="modal fade" id="historyModal<?php echo $row->id_solicitacao; ?>" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content border-0 bg-transparent">
@@ -79,6 +81,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php $modals_html .= ob_get_clean(); ?>
                             <?php
                         }
                     } else {
@@ -96,6 +99,7 @@
         </div>
     </div>
     
+    <?php echo isset($modals_html) ? $modals_html : ''; ?>
     <?php include('cliente-dock.php'); ?>
 </body>
 </html>
